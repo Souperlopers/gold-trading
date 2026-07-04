@@ -1,111 +1,55 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import "tailwindcss";
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+/* toggling dark mode manually */
+@custom-variant dark (&:where(.dark, .dark *));
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+	--breakpoint-sm: 1024rem;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+	/* Light mode */
+	--color-primary: #d4a017;
+	--color-primary-hover: #b8860b;
+	--color-secondary: #c49a2a;
+	--color-secondary-hover: #a87f1e;
+	--color-accent: #e6b422;
+	--color-background: #fff8e7;
+	--color-background-secondary: #fff1cc;
+	--color-surface: #ffffff;
+	--color-border: #e6c35c;
+	--color-text-primary: #3e2c0b;
+	--color-text-secondary: #6b4f1a;
+	--color-error: #a31515;
+	--color-success: #2e7d32;
+	--color-chart-bullish: #4caf50;
+	--color-chart-bearish: #c62828;
+
+	/* Dark mode */
+	--color-primary-d: #f0c040;
+	--color-primary-hover-d: #d4a017;
+	--color-secondary-d: #e0b050;
+	--color-secondary-hover-d: #c49a2a;
+	--color-accent-d: #ffd700;
+	--color-background-d: #1a1408;
+	--color-background-secondary-d: #2b210f;
+	--color-surface-d: #302616;
+	--color-border-d: #8b6914;
+	--color-text-primary-d: #fff1cc;
+	--color-text-secondary-d: #d4a017;
+	--color-error-d: #ff6b6b;
+	--color-success-d: #66bb6a;
+	--color-chart-bullish-d: #4caf50;
+	--color-chart-bearish-d: #ef5350;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+@font-face {
+	font-family: "vazir";
+	src: url("../../public/assets/fonts/Vazirmatn-Regular.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
+html,
 body {
-  margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+	@apply m-0 p-0 box-border w-full h-full;
 }
