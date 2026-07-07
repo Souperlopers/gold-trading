@@ -24,33 +24,11 @@ class OtpCode extends Model
         ];
     }
 
-    public static function generateFor(string $phone, string $purpose): self
-    {
-        $recent = static::where('phone', $phone)
-            ->where('purpose', $purpose)
-            ->where('created_at', '>', now()->subSeconds(60))
-            ->exists();
-
-        if ($recent) {
-            throw new OtpThrottledException();
-        }
-
-        static::where('phone', $phone)->where('purpose', $purpose)
-            ->whereNull('used_at')->update(['used_at' => now()]);
-
-        return static::create([
-            'phone' => $phone,
-            'code' => (string) random_int(100000, 999999),
-            'purpose' => $purpose,
-            'expires_at' => now()->addMinutes(5),
-        ]);
-    }
-
     /**
      * custom methods
      */
 
-    public function waitNotPassed(): bool
+    public function isWithinWaitPeriod(): bool
     {
         return $this->created_at->diffInSeconds(now()) < config('auth.otp.resend_wait');
     }

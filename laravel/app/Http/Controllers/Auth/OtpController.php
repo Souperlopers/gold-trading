@@ -47,7 +47,7 @@ class OtpController extends Controller
             ->isValid()->first();
 
         // return last code if its not expired
-        if ($otp?->waitNotPassed()) {
+        if ($otp?->isWithinWaitPeriod()) {
             return response()->json([
                 'message' => Lang::get('auth.otp.send.already_sent')
             ], 429);
