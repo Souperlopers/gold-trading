@@ -14,25 +14,18 @@ return [
     |
     */
 
-    'postmark' => [
-        'key' => env('POSTMARK_API_KEY'),
+    'otp' => [
+        'url' => env('OTP_API_URL'),
+        'api_key' => env('OTP_API_KEY'),
+        'template_id' => env('OTP_TEMPLATE_ID'),
+        'expiry' => env('OTP_EXPIRY'),
+        'resend_wait' => env('OTP_RESEND_WAIT'),
+        'timeout' => env('OTP_TIMEOUT'),
+        'connection_timeout' => env('OTP_CONNECT_TIMEOUT'),
     ],
 
-    'resend' => [
-        'key' => env('RESEND_API_KEY'),
+    'national_id' => [
+        'url' => env('NATIONAL_ID_URL'),
+        'api_key' => env('NATIONAL_ID_API_KEY'),
     ],
-
-    'ses' => [
-        'key' => env('AWS_ACCESS_KEY_ID'),
-        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
-    ],
-
-    'slack' => [
-        'notifications' => [
-            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
-            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
-        ],
-    ],
-
 ];
