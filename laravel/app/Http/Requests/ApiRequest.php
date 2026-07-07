@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\OtpCode;
 
 class ApiRequest extends FormRequest
 {
@@ -11,6 +11,10 @@ class ApiRequest extends FormRequest
     {
         return [
             'phone' => ['required', 'starts_with:09', 'size:11', 'regex:/^09\d{9}$/'],
+
+            // otp code purpose
+            'purpose' => ['required', 'in:' . implode(',', array_keys(OtpCode::PURPOSE))]
+
         ][$key];
     }
 }
