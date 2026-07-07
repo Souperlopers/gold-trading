@@ -52,7 +52,7 @@ class OtpCode extends Model
 
     public function waitNotPassed(): bool
     {
-        return $this->created_at->diffInSeconds(now()) < config('services.otp.resend_wait');
+        return $this->created_at->diffInSeconds(now()) < config('auth.otp.resend_wait');
     }
 
     public function scopeIsValid($query)
@@ -60,7 +60,7 @@ class OtpCode extends Model
         return $query
             ->whereNull('used_at') // not used
             ->where('attempts', '<', self::MAX_ATTEMPT) // can be attempted
-            ->where('created_at', '>', now()->subSeconds(config('services.otp.expiry'))) // is not expired
+            ->where('created_at', '>', now()->subSeconds(config('auth.otp.expiry'))) // is not expired
         ;
     }
 }

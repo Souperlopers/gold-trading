@@ -15,12 +15,10 @@ return [
     */
 
     'otp' => [
-        'url' => env('OTP_API_URL'),
-        'api_key' => env('OTP_API_KEY'),
-        'template_id' => env('OTP_TEMPLATE_ID'),
-        'expiry' => env('OTP_EXPIRY'),
-        'resend_wait' => env('OTP_RESEND_WAIT'),
-        'timeout' => env('OTP_TIMEOUT'),
+        'url'                => env('OTP_API_URL'        ),
+        'api_key'            => env('OTP_API_KEY'        ),
+        'template_id'        => env('OTP_TEMPLATE_ID'    ),
+        'timeout'            => env('OTP_TIMEOUT'        ),
         'connection_timeout' => env('OTP_CONNECT_TIMEOUT'),
     ],
 
