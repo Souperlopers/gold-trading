@@ -17,4 +17,12 @@ return [
         'taken' => 'This phone number is already registered.',
         'available' => 'This phone number is available.'
     ],
+    'otp' => [
+        'send' => [
+            'success' => 'OTP sent successfully.',
+            'fail' => 'OTP API returned error.',
+            'timeout' => 'External service timeout reached! please call admin.',
+            'already_sent' => 'Please wait before requesting another OTP code.',
+        ]
+    ],
 ];
