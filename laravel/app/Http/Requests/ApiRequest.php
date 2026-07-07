@@ -13,8 +13,9 @@ class ApiRequest extends FormRequest
             'phone' => ['required', 'starts_with:09', 'size:11', 'regex:/^09\d{9}$/'],
 
             // otp code purpose
-            'purpose' => ['required', 'in:' . implode(',', array_keys(OtpCode::PURPOSE))]
+            'purpose' => ['required', 'in:' . implode(',', array_keys(OtpCode::PURPOSE))],
 
+            'code' => ['required', 'digits:6'],
         ][$key];
     }
 }
