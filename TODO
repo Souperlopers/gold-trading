@@ -1,4 +1,11 @@
-find triple switch component for ThemeSwitch.tsx
+TOFO_Z find triple switch component for ThemeSwitch.tsx
 TODO_Z simple logo
 TODO_Z favicon
-create login page logic in backend
+TODO_Z create login page components (figma)
+
+TODO_Z create components of main pages (figma)
+
+TODO_S create verify endpoint
+TODO_S create registration endpoint
+TODO_S create login endpoint
+TODO_S create forgot password endpoint
