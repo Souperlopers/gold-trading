@@ -7,7 +7,7 @@ use App\Exceptions\OtpThrottledException;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['phone', 'code', 'purpose', 'expires_at', 'used_at', 'attempts'])]
+#[Fillable(['phone', 'code', 'purpose', 'expires_at', 'used_at', 'attempts', 'service_response', 'verification_token'])]
 class OtpCode extends Model
 {
     public const MAX_ATTEMPT = 3;
