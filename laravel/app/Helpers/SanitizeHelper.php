@@ -13,18 +13,7 @@ class SanitizeHelper
     {
         $western = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
         $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        $arabic  = [
-            '٠',
-            '١',
-            '٢',
-            '٣',
-            '٤',
-            '٥',
-            '٦',
-            '٧',
-            '٨',
-            '٩'
-        ];
+        $arabic  = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
 
         $pr = str_replace($persian, $western, $string);
         return str_replace($arabic, $western, $pr);
@@ -35,6 +24,7 @@ class SanitizeHelper
      */
     public static function sanitizePhone(?string $phone): string
     {
+        // reject if there aren't any input
         if (!$phone) return '';
 
         // Convert all chars to en digits
@@ -82,23 +72,11 @@ class SanitizeHelper
     public static function sanitizeNationalCode(?string $code): string|bool
     {
         // reject if there aren't any input
-        if (!$code) return false;
+        if (!$code) return '';
 
         // trim and remove redundant characters
         $code = str_replace(['.', ' ', '-', '_'], '', $code);
         $code = self::en($code);
-
-        // reject if there are any characters except numbers
-        if (!preg_match('/^[0-9]{8,10}$/', $code)) {
-            return false;
-        }
-
-        // reject if all digits are same
-        for ($i = 0; $i < 10; $i++) {
-            if (preg_match('/^' . $i . '{10}$/', $code)) {
-                return false;
-            }
-        }
 
         // prepending zeros
         if (($codeLen = strlen($code)) < 10) {
@@ -106,21 +84,6 @@ class SanitizeHelper
             $code = str_repeat('0', $zeroNum) . $code;
         }
 
-        // calculate checksum
-        for ($i = 10, $sum = 0; $i > 0; $i--) {
-            $digit = substr($code, $i - 10, 1);
-            $sum += $i * intval($digit);
-        }
-        $ret = $sum % 11;
-
-        // get pariti digit
-        $parity = intval(substr($code, 9, 1));
-
-
-        if (($ret < 2 && $ret == $parity) || ($ret >= 2 && $ret == 11 - $parity)) {
-            return $code;
-        }
-
-        return false;
+        return $code;
     }
 }
