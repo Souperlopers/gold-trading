@@ -21,6 +21,6 @@ class PhoneCheckController extends Controller
                     ? 'auth.phone.taken'
                     : 'auth.phone.available'
             )
-        ], $exists ? 200 : 404);
+        ]);
     }
 }
