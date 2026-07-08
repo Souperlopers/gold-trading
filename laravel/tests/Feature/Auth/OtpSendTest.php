@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
 
 use App\Models\OtpCode;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,43 +31,36 @@ class OtpSendTest extends TestCase
 
     public function test_it_sends_otp_successfully()
     {
-        Http::fake([
-            'api.sms.ir/*' => Http::response([
-                'status' => 1,
-                'message' => 'موفق',
-                'data' => [
-                    'messageId' => 89545112,
-                    'cost' => 1.0,
-                ]
-            ], 200)
-        ]);
+        Http::fake(['api.sms.ir/*' => Http::response([
+            'status' => 1,
+            'message' => 'موفق',
+            'data' => [
+                'messageId' => 89545112,
+                'cost' => 1.0,
+            ]
+        ], 200)]);
 
         $response = $this->postJson($this->endpoint, [
             'phone' => $this->validPhone,
             'purpose' => $this->purpose,
         ]);
 
-        $response->assertStatus(200)
-            ->assertJsonStructure(['message', 'expires_at']);
+        $response->assertStatus(200)->assertJsonStructure(['message', 'expires_at']);
 
         $this->assertDatabaseHas('otp_codes', [
             'phone'   => $this->validPhone,
             'purpose' => $this->purpose,
             'used_at' => null,
+            'service_response' => '89545112',
         ]);
-
-        // Verify provider_message_id was stored
-        $otp = OtpCode::first();
-        $this->assertEquals('89545112', $otp->service_response);
     }
 
     public function test_it_prevents_duplicate_otp_within_wait_period()
     {
-        OtpCode::create([
+        $otp = OtpCode::create([
             'phone' => $this->validPhone,
             'code' => '123456',
             'purpose' => $this->purpose,
-            'created_at' => now()->subSeconds(30),
         ]);
 
         $response = $this->postJson($this->endpoint, [
@@ -97,7 +90,7 @@ class OtpSendTest extends TestCase
             'code'    => '123456',
             'purpose' => $this->purpose,
         ]);
-        $otp->created_at = now()->subSeconds(Config::get('services.otp.resend_wait') + 1);
+        $otp->created_at = now()->subSeconds(Config::get('auth.otp.resend_wait') + 1);
         $otp->save();
 
         $response = $this->postJson($this->endpoint, [
@@ -149,13 +142,14 @@ class OtpSendTest extends TestCase
             ], 200)
         ]);
 
-        OtpCode::create([
+        $otp = OtpCode::create([
             'phone' => $this->validPhone,
             'code' => '123456',
             'purpose' => $this->purpose,
             'used_at' => now(),
-            'created_at' => now()->subSeconds(10),
         ]);
+        $otp->created_at = now()->subSeconds(10);
+        $otp->save();
 
         $response = $this->postJson($this->endpoint, [
             'phone' => $this->validPhone,
@@ -201,12 +195,13 @@ class OtpSendTest extends TestCase
             ], 200)
         ]);
 
-        OtpCode::create([
+        $otp = OtpCode::create([
             'phone' => $this->validPhone,
             'code' => '123456',
             'purpose' => 'registration',
-            'created_at' => now()->subSeconds(10),
         ]);
+        $otp->created_at = now()->subSeconds(10);
+        $otp->save();
 
         $response = $this->postJson($this->endpoint, [
             'phone' => $this->validPhone,
@@ -364,7 +359,7 @@ class OtpSendTest extends TestCase
             ], 200)
         ]);
 
-        Config::set('services.otp.timeout', 10);
+        Config::set('auth.otp.expiry', 500);
 
         $response = $this->postJson($this->endpoint, [
             'phone' => $this->validPhone,
@@ -374,7 +369,7 @@ class OtpSendTest extends TestCase
         $expiresAt = $response->json('expires_at');
         $otp = OtpCode::first();
 
-        $expected = $otp->created_at->addMinutes(10)->toISOString();
+        $expected = $otp->created_at->addSeconds(500)->toISOString();
         $this->assertEquals($expected, $expiresAt);
     }
 
@@ -425,12 +420,13 @@ class OtpSendTest extends TestCase
 
     public function test_it_does_not_allow_requesting_otp_for_same_purpose_within_wait_period_even_with_different_phone()
     {
-        OtpCode::create([
+        $otp = OtpCode::create([
             'phone' => $this->validPhone,
             'code' => '123456',
             'purpose' => $this->purpose,
-            'created_at' => now()->subSeconds(10),
         ]);
+        $otp->created_at = now()->subSeconds(10);
+        $otp->save();
 
         $response = $this->postJson($this->endpoint, [
             'phone' => '09123456788',
