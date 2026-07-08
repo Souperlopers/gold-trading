@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Rules;
+
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
+
+class NationalIdRule implements ValidationRule
+{
+    public function validate(string $attribute, mixed $value, Closure $fail): void
+    {
+        // reject if all digits are same
+        $charsAreSame = fn($str) => count(array_unique(str_split($str))) == 1;
+        if ($charsAreSame($value)) {
+            return $this->fail($fail);
+        }
+
+        // Convert to array of digits
+        $digits = str_split($value);
+
+        // Calculate checksum for first 9 digits
+        for ($sum = 0, $i = 0; $i < 9; $i++) {
+            $pos = 10 - $i;
+            $sum += $pos * intval($digits[$i]);
+        }
+
+        $remainder = $sum % 11;
+        $parity = intval($digits[9]); // 10th digit
+
+        if (
+            ($remainder <  2 && $remainder !==     $parity) ||
+            ($remainder >= 2 && $remainder !== (11 - $parity))
+        ) {
+            return $this->fail($fail);
+        }
+    }
+
+    private function fail(Closure $fail): void
+    {
+        $fail(__('validation.custom.national_id.invalid_structure'));
+        return;
+    }
+}
