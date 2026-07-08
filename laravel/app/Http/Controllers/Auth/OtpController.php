@@ -16,34 +16,6 @@ class OtpController extends Controller
         private OtpService $service
     ) {}
 
-    private function callService(OtpCode $otp)
-    {
-        $service = $this->service;
-
-        // send the OTP via SMS
-        $result = $service(
-            phone: $otp->phone,
-            operation: OtpCode::PURPOSE[$otp->purpose],
-            code: $otp->code,
-        );
-
-        $otp->update([
-            'service_response' => $result['body']['data']['messageId'] ?? -1,
-        ]);
-
-        $response = [
-            'message' => Lang::get($result['success']
-                ? 'auth.otp.send.success'
-                : 'auth.otp.send.fail'),
-        ];
-
-        if ($result['success']) {
-            $response['expires_at'] = $otp->created_at->addSeconds((int) config('auth.otp.expiry'));
-        }
-
-        return response()->json($response, $result['success'] ? 200 : 503);
-    }
-
     public function send(OtpSendRequest $request)
     {
         // Check for existing OTP
@@ -64,6 +36,29 @@ class OtpController extends Controller
             'code'    => random_int(100000, 999999),
             'purpose' => $purpose,
         ]));
+    }
+
+    private function callService(OtpCode $otp)
+    {
+        $service = $this->service;
+
+        // send the OTP via SMS
+        $result = $service(
+            phone: $otp->phone,
+            operation: OtpCode::PURPOSE[$otp->purpose],
+            code: $otp->code,
+        );
+
+        $otp->update([
+            'service_response' => $result['body']['data']['messageId'] ?? -1,
+        ]);
+
+        return response()->json($result['success'] ? [
+            'message' => Lang::get('auth.otp.send.success')
+        ] : [
+            'message' => Lang::get('auth.otp.send.fail'),
+            'expires_at' => $otp->created_at->addSeconds((int) config('auth.otp.expiry'))
+        ], $result['success'] ? 200 : 503);
     }
 
     public function verify(VerifyPhoneRequest $request)
