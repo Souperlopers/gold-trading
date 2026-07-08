@@ -38,7 +38,7 @@ class OtpController extends Controller
         ];
 
         if ($result['success']) {
-            $response['expires_at'] = $otp->created_at->addSeconds(config('auth.otp.expiry'));
+            $response['expires_at'] = $otp->created_at->addSeconds((int) config('auth.otp.expiry'));
         }
 
         return response()->json($response, $result['success'] ? 200 : 503);
