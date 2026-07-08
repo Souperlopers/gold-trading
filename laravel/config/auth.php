@@ -114,4 +114,13 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    /**
+     * custom values
+     */
+    
+    'otp'=>[
+        'expiry'       => env('OTP_EXPIRY'      ),
+        'resend_wait'  => env('OTP_RESEND_WAIT' ),
+        'token_expiry' => env('OTP_TOKEN_EXPIRY'),
+    ],
 ];

@@ -4,7 +4,6 @@ namespace App\Services;
 
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
@@ -47,7 +46,7 @@ class OtpService
                         ],
                         [
                             "name" => "TIME",
-                            "value" => (string) config('services.otp.expiry'),
+                            "value" => (string) config('auth.otp.expiry'),
                         ],
                     ]
                 ]);

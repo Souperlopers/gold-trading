@@ -7,7 +7,7 @@ use App\Exceptions\OtpThrottledException;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['phone', 'code', 'purpose', 'expires_at', 'used_at', 'attempts'])]
+#[Fillable(['phone', 'code', 'purpose', 'expires_at', 'used_at', 'attempts', 'service_response', 'verification_token'])]
 class OtpCode extends Model
 {
     public const MAX_ATTEMPT = 3;
@@ -24,35 +24,13 @@ class OtpCode extends Model
         ];
     }
 
-    public static function generateFor(string $phone, string $purpose): self
-    {
-        $recent = static::where('phone', $phone)
-            ->where('purpose', $purpose)
-            ->where('created_at', '>', now()->subSeconds(60))
-            ->exists();
-
-        if ($recent) {
-            throw new OtpThrottledException();
-        }
-
-        static::where('phone', $phone)->where('purpose', $purpose)
-            ->whereNull('used_at')->update(['used_at' => now()]);
-
-        return static::create([
-            'phone' => $phone,
-            'code' => (string) random_int(100000, 999999),
-            'purpose' => $purpose,
-            'expires_at' => now()->addMinutes(5),
-        ]);
-    }
-
     /**
      * custom methods
      */
 
-    public function waitNotPassed(): bool
+    public function isWithinWaitPeriod(): bool
     {
-        return $this->created_at->diffInSeconds(now()) < config('services.otp.resend_wait');
+        return $this->created_at->diffInSeconds(now()) < config('auth.otp.resend_wait');
     }
 
     public function scopeIsValid($query)
@@ -60,7 +38,7 @@ class OtpCode extends Model
         return $query
             ->whereNull('used_at') // not used
             ->where('attempts', '<', self::MAX_ATTEMPT) // can be attempted
-            ->where('created_at', '>', now()->subSeconds(config('services.otp.expiry'))) // is not expired
+            ->where('created_at', '>', now()->subSeconds(config('auth.otp.expiry'))) // is not expired
         ;
     }
 }
