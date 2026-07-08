@@ -22,11 +22,4 @@ class VerifyPhoneRequest extends ApiRequest
             'phone' => SanitizeHelper::sanitizePhone($this->phone),
         ]);
     }
-
-    public function validatedUserData(): array
-    {
-        return [
-            'phone' => $this->validated('phone'),
-        ];
-    }
 }
