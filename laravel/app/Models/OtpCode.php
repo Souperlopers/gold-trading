@@ -34,6 +34,14 @@ class OtpCode extends Model
         return $this->created_at->diffInSeconds(now()) < config('auth.otp.resend_wait');
     }
 
+    public static function getPhoneByToken(string $token): string
+    {
+        return static::query()
+            ->where('verification_token', hash(static::TOKEN_HASH_ALGO, $token))
+            ->where('used_at', '>', now()->subSeconds(config('auth.otp.token_expiry'))) // is not expired
+            ->first()?->phone;
+    }
+
     public function scopeIsValid($query)
     {
         return $query
