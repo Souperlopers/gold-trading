@@ -84,7 +84,7 @@ class OtpController extends Controller
 
         $otp->update([
             'used_at' => now(),
-            'verification_token' => hash('sha256', $token = Str::random(40))
+            'verification_token' => hash(OtpCode::TOKEN_HASH_ALGO, $token = Str::random(40))
         ]);
 
         return response()->json([

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable(['phone', 'code', 'purpose', 'expires_at', 'used_at', 'attempts', 'service_response', 'verification_token'])]
 class OtpCode extends Model
 {
+    public const TOKEN_HASH_ALGO = "sha256";
     public const MAX_ATTEMPT = 3;
     public const PURPOSE = [
         'password_reset' => 'تغییر رمز عبور',
