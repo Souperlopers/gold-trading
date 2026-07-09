@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\OtpCode;
-use App\Rules\NationalIdRule;
+use App\Rules\NationalIdChecksumRule;
 use Illuminate\Validation\Rules\Password;
 
 class ApiRequest extends FormRequest
@@ -13,8 +13,8 @@ class ApiRequest extends FormRequest
     {
         return [
             'name'        => ['required', 'string', 'min:3', 'max:191'],
-            'phone'       => ['required', 'starts_with:09', 'size:11', 'regex:/^09\d{9}$/'],
-            'national_id' => ['required', 'unique:users,national_id', 'size:10', new NationalIdRule()],
+            'phone'       => ['required', 'numeric', 'digits:11', 'starts_with:09'],
+            'national_id' => ['required', 'numeric', 'min:8', 'max:10', new NationalIdChecksumRule()],
             'code'        => ['required', 'digits:6'],
             'purpose'     => ['required', 'in:' . implode(',', array_keys(OtpCode::PURPOSE))],
             'password'    => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
