@@ -11,13 +11,6 @@ class NationalIdChecksumRule implements ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        // prepending zeros
-        $value = match (strlen($value)) {
-            8 => '00' . $value,
-            9 => '0' . $value,
-            default => $value,
-        };
-
         // reject if all digits are same
         $charsAreSame = fn($str) => count(array_unique(str_split($str))) == 1;
         if ($charsAreSame($value)) {

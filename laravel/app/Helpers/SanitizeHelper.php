@@ -68,6 +68,13 @@ class SanitizeHelper
         // reject if there aren't any input
         if (!$code) return '';
         
+        // prepending zeros
+        $code = match (strlen($code)) {
+            8 => '00' . $code,
+            9 => '0' . $code,
+            default => $code,
+        };
+
         // trim and remove redundant characters
         $code = str_replace(['.', ' ', '-', '_'], '', $code);
         $code = self::en($code);
