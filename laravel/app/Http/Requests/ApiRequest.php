@@ -18,7 +18,7 @@ class ApiRequest extends FormRequest
             'code'        => ['required', 'digits:6'],
             'purpose'     => ['required', 'in:' . implode(',', array_keys(OtpCode::PURPOSE))],
             'password'    => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
-            'otp_token'   => ['required', 'string', 'size:40', 'exists:otp_codes,verification_token'],
+            'otp_token'   => ['required', 'string', 'size:40'],
             'client'      => ['required', 'string', 'in:mobile,web'],
         ][$key];
     }
