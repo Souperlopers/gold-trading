@@ -14,7 +14,7 @@ class ApiRequest extends FormRequest
         return [
             'name'        => ['required', 'string', 'min:3', 'max:191'],
             'phone'       => ['required', 'numeric', 'digits:11', 'starts_with:09'],
-            'national_id' => ['required', 'numeric', 'min:8', 'max:10', new NationalIdChecksumRule()],
+            'national_id' => ['required', 'numeric', 'digits:10', new NationalIdChecksumRule()],
             'code'        => ['required', 'digits:6'],
             'purpose'     => ['required', 'in:' . implode(',', array_keys(OtpCode::PURPOSE))],
             'password'    => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
