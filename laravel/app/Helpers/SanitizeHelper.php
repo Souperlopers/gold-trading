@@ -19,9 +19,6 @@ class SanitizeHelper
         return str_replace($arabic, $western, $pr);
     }
 
-    /**
-     * Sanitize Phone Numbers
-     */
     public static function sanitizePhone(?string $phone): string
     {
         // reject if there aren't any input
@@ -66,23 +63,14 @@ class SanitizeHelper
         return $phone;
     }
 
-    /**
-     * Sanitize National Code
-     */
     public static function sanitizeNationalCode(?string $code): string|bool
     {
         // reject if there aren't any input
         if (!$code) return '';
-
+        
         // trim and remove redundant characters
         $code = str_replace(['.', ' ', '-', '_'], '', $code);
         $code = self::en($code);
-
-        // prepending zeros
-        if (($codeLen = strlen($code)) < 10) {
-            $zeroNum = 10 - $codeLen;
-            $code = str_repeat('0', $zeroNum) . $code;
-        }
 
         return $code;
     }
