@@ -54,10 +54,10 @@ class OtpController extends Controller
         ]);
 
         return response()->json($result['success'] ? [
-            'message' => Lang::get('auth.otp.send.success')
+            'message' => Lang::get('auth.otp.send.success'),
+            'expires_at' => $otp->created_at->addSeconds((int) config('auth.otp.expiry')),
         ] : [
             'message' => Lang::get('auth.otp.send.fail'),
-            'expires_at' => $otp->created_at->addSeconds((int) config('auth.otp.expiry'))
         ], $result['success'] ? 200 : 503);
     }
 
