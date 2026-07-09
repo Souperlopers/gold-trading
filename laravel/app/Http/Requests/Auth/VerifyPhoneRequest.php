@@ -11,7 +11,7 @@ class VerifyPhoneRequest extends ApiRequest
     {
         return [
             'phone' => $this->getRule('phone'),
-            'code' => array_merge($this->getRule('code'), ['exists:otp_codes,verification_token']),
+            'code' => $this->getRule('code'),
             'purpose' => $this->getRule('purpose'),
         ];
     }
