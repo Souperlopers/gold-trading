@@ -89,7 +89,7 @@ class OtpController extends Controller
 
         return response()->json([
             'verification_token' => $token,
-            'expires_in' => config('auth.otp.token_expiry')
+            'expires_at' => $otp->created_at->addSeconds((int) config('auth.otp.expiry'))->toDateTimeString(),
         ], 200);
     }
 }
