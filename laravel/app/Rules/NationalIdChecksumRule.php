@@ -5,14 +5,24 @@ namespace App\Rules;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class NationalIdRule implements ValidationRule
+class NationalIdChecksumRule implements ValidationRule
 {
+    private $messagePath = 'validation.custom.national_id.invalid_structure';
+
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        // prepending zeros
+        $value = match (strlen($value)) {
+            8 => '00' . $value,
+            9 => '0' . $value,
+            default => $value,
+        };
+
         // reject if all digits are same
         $charsAreSame = fn($str) => count(array_unique(str_split($str))) == 1;
         if ($charsAreSame($value)) {
-            return $this->fail($fail);
+            $fail(__($this->messagePath));
+            return;
         }
 
         // Convert to array of digits
@@ -31,13 +41,8 @@ class NationalIdRule implements ValidationRule
             ($remainder <  2 && $remainder !==     $parity) ||
             ($remainder >= 2 && $remainder !== (11 - $parity))
         ) {
-            return $this->fail($fail);
+            $fail(__($this->messagePath));
+            return;
         }
-    }
-
-    private function fail(Closure $fail): void
-    {
-        $fail(__('validation.custom.national_id.invalid_structure'));
-        return;
     }
 }
