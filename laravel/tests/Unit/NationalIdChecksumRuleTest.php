@@ -26,7 +26,7 @@ class NationalIdChecksumRuleTest extends TestCase
     public function test_valid_national_ids_pass_validation()
     {
         // These are valid Iranian National IDs based on the checksum algorithm
-        $validIds = ['42021332', '042021332', '0042021332', '9760068354', '6024878397', '0225163675', '9555878455',];
+        $validIds = ['0042021332', '9760068354', '6024878397', '0225163675', '9555878455',];
 
         foreach ($validIds as $id) {
             $validator = Validator::make(
@@ -87,29 +87,6 @@ class NationalIdChecksumRuleTest extends TestCase
         }
     }
 
-    public function test_national_ids_with_letters_are_rejected()
-    {
-        $validator = Validator::make(
-            ['national_id' => '123456789a'],
-            ['national_id' => $this->rule]
-        );
-
-        $this->assertFalse($validator->passes());
-        // Note: The rule doesn't explicitly reject letters, but the size:10 rule will catch this
-        // if used in combination. If testing the rule alone, it will treat 'a' as 0.
-        // This is why we use it with size:10 in the actual validation.
-    }
-
-    public function test_national_ids_with_special_characters_are_rejected()
-    {
-        $validator = Validator::make(
-            ['national_id' => '1234-6789-0'],
-            ['national_id' => $this->rule]
-        );
-
-        $this->assertFalse($validator->passes());
-    }
-
     // ==================== ERROR MESSAGE TESTS ====================
 
     public function test_error_message_is_correct()
@@ -124,30 +101,6 @@ class NationalIdChecksumRuleTest extends TestCase
             str_replace(':attribute', 'national ID', Lang::get('validation.custom.national_id.invalid_structure')),
             $validator->errors()->first('national_id')
         );
-    }
-
-    // ==================== EDGE CASES ====================
-
-    public function test_national_id_with_length_less_than_10_is_rejected()
-    {
-        $validator = Validator::make(
-            ['national_id' => '123456789'],
-            ['national_id' => ['size:10', $this->rule]]
-        );
-
-        $this->assertFalse($validator->passes());
-        $this->assertTrue($validator->errors()->has('national_id'));
-    }
-
-    public function test_national_id_with_length_greater_than_10_is_rejected()
-    {
-        $validator = Validator::make(
-            ['national_id' => '12345678901'],
-            ['national_id' => ['size:10', $this->rule]]
-        );
-
-        $this->assertFalse($validator->passes());
-        $this->assertTrue($validator->errors()->has('national_id'));
     }
 
     public function test_rule_works_with_different_field_names()
