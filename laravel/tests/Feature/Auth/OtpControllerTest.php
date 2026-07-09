@@ -261,7 +261,7 @@ class OtpControllerTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJson([
-                'message' => Lang::get('auth.otp.verify.invalid'),
+                'message' => Lang::get('auth.otp.verify.incorrect'),
             ]);
     }
 
@@ -284,7 +284,7 @@ class OtpControllerTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJson([
-                'message' => Lang::get('auth.otp.verify.invalid'),
+                'message' => Lang::get('auth.otp.verify.incorrect'),
             ]);
     }
 
@@ -306,7 +306,7 @@ class OtpControllerTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJson([
-                'message' => Lang::get('auth.otp.verify.invalid'),
+                'message' => Lang::get('auth.otp.verify.incorrect'),
             ]);
     }
 
@@ -327,7 +327,7 @@ class OtpControllerTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJson([
-                'message' => Lang::get('auth.otp.verify.invalid'),
+                'message' => Lang::get('auth.otp.verify.incorrect'),
             ]);
     }
 

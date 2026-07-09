@@ -21,11 +21,10 @@ return [
         'send' => [
             'success'      => 'OTP sent successfully.',
             'fail'         => 'OTP API returned error.',
-            'timeout'      => 'External service timeout reached! please call admin.',
+            'timeout'      => 'External service timeout reached! please call the admin.',
             'already_sent' => 'Please wait before requesting another OTP code.',
         ],
         'verify' => [
-            'invalid'   => 'Invalid or expired code.',
             'incorrect' => 'Incorrect code.',
         ],
     ],
