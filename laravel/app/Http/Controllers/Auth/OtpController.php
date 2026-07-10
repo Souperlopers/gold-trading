@@ -54,10 +54,10 @@ class OtpController extends Controller
         ]);
 
         return response()->json($result['success'] ? [
-            'message' => Lang::get('auth.otp.send.success')
+            'message' => Lang::get('auth.otp.send.success'),
+            'expires_at' => $otp->created_at->addSeconds((int) config('auth.otp.expiry'))->toDateTimeString(),
         ] : [
             'message' => Lang::get('auth.otp.send.fail'),
-            'expires_at' => $otp->created_at->addSeconds((int) config('auth.otp.expiry'))
         ], $result['success'] ? 200 : 503);
     }
 
@@ -70,7 +70,7 @@ class OtpController extends Controller
 
         if (!$otp) {
             return response()->json([
-                'message' => Lang::get('auth.otp.verify.invalid')
+                'message' => Lang::get('auth.otp.verify.incorrect')
             ], 422);
         }
 
@@ -84,12 +84,12 @@ class OtpController extends Controller
 
         $otp->update([
             'used_at' => now(),
-            'verification_token' => hash('sha256', $token = Str::random(40))
+            'verification_token' => hash(OtpCode::TOKEN_HASH_ALGO, $token = Str::random(40))
         ]);
 
         return response()->json([
             'verification_token' => $token,
-            'expires_in' => config('auth.otp.token_expiry')
+            'expires_at' => $otp->created_at->addSeconds((int) config('auth.otp.expiry'))->toDateTimeString(),
         ], 200);
     }
 }

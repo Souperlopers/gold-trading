@@ -179,6 +179,12 @@ return [
     */
 
     'custom' => [
+        'national_id' => [
+            'invalid_structure' => 'The :attribute structure is wrong.',
+        ],
+        'verification_token' => [
+            'invalid' => 'Invalid or expired verification token.',
+        ],
     ],
 
     /*
@@ -194,6 +200,7 @@ return [
 
     'attributes' => [
         'phone' => 'phone number',
+        'national_id' => 'national ID',
     ],
 
 ];

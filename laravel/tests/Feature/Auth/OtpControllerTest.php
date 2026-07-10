@@ -235,7 +235,7 @@ class OtpControllerTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'verification_token',
-                'expires_in'
+                'expires_at'
             ]);
 
         $otp->refresh();
@@ -261,7 +261,7 @@ class OtpControllerTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJson([
-                'message' => Lang::get('auth.otp.verify.invalid'),
+                'message' => Lang::get('auth.otp.verify.incorrect'),
             ]);
     }
 
@@ -284,7 +284,7 @@ class OtpControllerTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJson([
-                'message' => Lang::get('auth.otp.verify.invalid'),
+                'message' => Lang::get('auth.otp.verify.incorrect'),
             ]);
     }
 
@@ -306,7 +306,7 @@ class OtpControllerTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJson([
-                'message' => Lang::get('auth.otp.verify.invalid'),
+                'message' => Lang::get('auth.otp.verify.incorrect'),
             ]);
     }
 
@@ -327,7 +327,7 @@ class OtpControllerTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJson([
-                'message' => Lang::get('auth.otp.verify.invalid'),
+                'message' => Lang::get('auth.otp.verify.incorrect'),
             ]);
     }
 
@@ -352,7 +352,7 @@ class OtpControllerTest extends TestCase
             ]);
 
         $otp->refresh();
-        $this->assertEquals(1, $otp->attempts); // incremented
+        $this->assertEquals(1, $otp->attempts);
         $this->assertNull($otp->used_at);
         $this->assertNull($otp->verification_token);
     }
@@ -361,7 +361,7 @@ class OtpControllerTest extends TestCase
     {
         Config::set('auth.otp.token_expiry', 300);
 
-        OtpCode::create([
+        $otp = OtpCode::create([
             'phone' => $this->validPhone,
             'code' => '123456',
             'purpose' => $this->purpose,
@@ -376,7 +376,7 @@ class OtpControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-                'expires_in' => 300,
+                'expires_at' => $otp->created_at->addSeconds((int) Config::get('auth.otp.expiry'))->toDateTimeString(),
             ]);
     }
 

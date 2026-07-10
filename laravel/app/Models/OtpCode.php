@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable(['phone', 'code', 'purpose', 'expires_at', 'used_at', 'attempts', 'service_response', 'verification_token'])]
 class OtpCode extends Model
 {
+    public const TOKEN_HASH_ALGO = "sha256";
     public const MAX_ATTEMPT = 3;
     public const PURPOSE = [
         'password_reset' => 'تغییر رمز عبور',
@@ -31,6 +32,14 @@ class OtpCode extends Model
     public function isWithinWaitPeriod(): bool
     {
         return $this->created_at->diffInSeconds(now()) < config('auth.otp.resend_wait');
+    }
+
+    public static function getPhoneByToken(string $token): ?string
+    {
+        return static::query()
+            ->where('verification_token', hash(static::TOKEN_HASH_ALGO, $token))
+            ->where('used_at', '>', now()->subSeconds(config('auth.otp.token_expiry'))) // is not expired
+            ->first()?->phone;
     }
 
     public function scopeIsValid($query)
