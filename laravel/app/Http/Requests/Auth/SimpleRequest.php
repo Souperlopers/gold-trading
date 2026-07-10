@@ -4,7 +4,7 @@ namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\ApiRequest;
 
-class LogoutRequest extends ApiRequest
+class SimpleRequest extends ApiRequest
 {
     public function rules(): array
     {
