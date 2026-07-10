@@ -17,7 +17,7 @@ class ApiRequest extends FormRequest
             'national_id' => ['required', 'numeric', 'digits:10', new NationalIdChecksumRule()],
             'code'        => ['required', 'digits:6'],
             'purpose'     => ['required', 'in:' . implode(',', array_keys(OtpCode::PURPOSE))],
-            'password'    => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
+            'password'    => ['required', Password::min(8)->mixedCase()->numbers()],
             'otp_token'   => ['required', 'string', 'size:40'],
             'client'      => ['required', 'string', 'in:mobile,web'],
         ][$key];

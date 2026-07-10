@@ -11,7 +11,7 @@ class RegisterRequest extends ApiRequest
     {
         return [
             'name'        => $this->getRule('name'),
-            'password'    => $this->getRule('password'),
+            'password'    => array_merge($this->getRule('password'), ['confirmed']),
             'otp_token'   => $this->getRule('otp_token'),
             'client'      => $this->getRule('client'),
             'national_id' => array_merge(
