@@ -5,14 +5,11 @@ TODO_Z create login page components (figma)
 
 TODO_Z create components of main pages (figma)
 
-TODO_S create logout endpoint
-TODO_S create forgot password endpoint
 TODO_S add roles (+middlewares)
-TODO_S add user resource
 
 TODO_S sanctum refresh token? expiration?
 TODO_S add national id validation service
 TODO_S add session based authentication for web clients
- [ ] commented out test in RegistrationTest and LoginTest
- [ ] removed statefulApi middleware from bootstrap/app
- [ ] set cors allow credentials to false
+[ ] commented out test in RegistrationTest and LoginTest
+[ ] removed statefulApi middleware from bootstrap/app
+[ ] set cors allow credentials to false

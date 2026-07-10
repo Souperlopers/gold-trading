@@ -1,15 +1,16 @@
 <?php
 
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\OtpController;
-use App\Http\Controllers\Auth\PhoneCheckController;
+use App\Http\Controllers\Auth\PhoneController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('throttle:10,1')->group(function () {
 
     Route::prefix('/phone')->group(function () {
-        Route::get('/', PhoneCheckController::class);
+        Route::get('/', [PhoneController::class, 'check']);
         Route::post('/send-otp', [OtpController::class, 'send']);
         Route::post('/verify', [OtpController::class, 'verify']);
     });
@@ -17,6 +18,7 @@ Route::middleware('throttle:10,1')->group(function () {
     Route::prefix('/auth')->group(function () {
         Route::post('/register', [RegistrationController::class, 'register']);
         Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/reset-password', [PasswordController::class, 'reset']);
         Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
     });
 

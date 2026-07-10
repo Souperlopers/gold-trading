@@ -13,7 +13,9 @@ class OtpSendRequest extends ApiRequest
             'purpose' => $this->getRule('purpose'),
             'phone' => array_merge(
                 $this->getRule('phone'),
-                ($this->input('purpose') === 'registration') ? ['unique:users,phone'] : []
+                ($this->input('purpose') === 'registration')
+                    ? ['unique:users,phone']
+                    : ['exists:users,phone']
             ),
         ];
     }

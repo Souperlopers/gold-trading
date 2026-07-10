@@ -59,8 +59,6 @@ class LoginTest extends TestCase
             ->assertJson([
                 'message' => Lang::get('auth.login.success'),
             ]);
-
-        $this->assertAuthenticatedAs(User::first(), 'sanctum');
     }
 
     // public function test_user_can_login_with_web_client()

@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Requests\Auth\LogoutRequest;
+use App\Http\Requests\Auth\SimpleRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Laravel\Sanctum\PersonalAccessToken;
 
@@ -17,13 +18,15 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         // drop request if phone or password is invalid
-        if (! Auth::attempt($request->validatedUserData())) {
+        $user = User::where('phone', $request->validated('phone'))->first();
+
+        if (! $user || ! Hash::check($request->validated('password'), $user->password)) {
             return response()->json([
                 'message' => Lang::get('auth.login.failed'),
             ], 422);
         }
 
-        return $this->authWithPhonePass($request, Auth::user());
+        return $this->authWithPhonePass($request, $user);
     }
 
     // accessed from LoginController and RegisterController
@@ -52,22 +55,16 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(LogoutRequest $request)
+    public function logout(SimpleRequest $request)
     {
         if ($request->validated('client') === 'mobile') {
             if (
-                PersonalAccessToken::findToken(
-                    $request->bearerToken()
-                )?->delete()
+                $request->user()->currentAccessToken()->delete()
             ) {
                 return response()->json([
                     'message' => Lang::get('auth.logout.success'),
                 ], 200);
             }
-
-            return response()->json([
-                'message' => Lang::get('auth.logout.failed'),
-            ], 200);
         }
     }
 }

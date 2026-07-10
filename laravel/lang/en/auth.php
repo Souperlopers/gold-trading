@@ -28,7 +28,11 @@ return [
             'incorrect' => 'Incorrect code.',
         ],
     ],
-    'password'     => 'The provided password is incorrect.',
+    'password'     => [
+        'reset' => 'Your password has been reset.',
+        'token' => 'This password reset token is invalid.',
+        'user'  => "We can't find a user with that phone number.",
+    ],
     'throttle'     => 'Too many login attempts. Please try again in :seconds seconds.',
     'register' => [
         'already'       => 'You have already registerd, please call admin.',
