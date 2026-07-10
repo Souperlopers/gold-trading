@@ -10,6 +10,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
@@ -54,10 +55,18 @@ class AuthController extends Controller
     public function logout(LogoutRequest $request)
     {
         if ($request->validated('client') === 'mobile') {
-            $request->user()->currentAccessToken()->delete();
+            if (
+                PersonalAccessToken::findToken(
+                    $request->bearerToken()
+                )?->delete()
+            ) {
+                return response()->json([
+                    'message' => Lang::get('auth.logout.success'),
+                ], 200);
+            }
 
             return response()->json([
-                'message' => Lang::get('auth.logout.success'),
+                'message' => Lang::get('auth.logout.failed'),
             ], 200);
         }
     }
