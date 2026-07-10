@@ -15,7 +15,7 @@ class OtpSendTest extends TestCase
 
     private string $validPhone = '09309506250';
     private string $purpose = 'registration';
-    private string $endpoint = '/api/auth/phone/send-otp';
+    private string $endpoint = '/api/phone/send-otp';
 
     protected function setUp(): void
     {

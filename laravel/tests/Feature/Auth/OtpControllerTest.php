@@ -15,8 +15,8 @@ class OtpControllerTest extends TestCase
 
     private string $validPhone = '09309506250';
     private string $purpose = 'registration';
-    private string $sendEndpoint = '/api/auth/phone/send-otp';
-    private string $verifyEndpoint = '/api/auth/phone/verify';
+    private string $sendEndpoint = '/api/phone/send-otp';
+    private string $verifyEndpoint = '/api/phone/verify';
 
     protected function setUp(): void
     {
