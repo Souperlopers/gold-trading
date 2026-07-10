@@ -369,7 +369,7 @@ class OtpSendTest extends TestCase
         $expiresAt = $response->json('expires_at');
         $otp = OtpCode::first();
 
-        $expected = $otp->created_at->addSeconds(500)->toISOString();
+        $expected = $otp->created_at->addSeconds(500)->toDateTimeString();
         $this->assertEquals($expected, $expiresAt);
     }
 
