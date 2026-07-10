@@ -18,8 +18,8 @@ Route::middleware('throttle:10,1')->group(function () {
     Route::prefix('/auth')->group(function () {
         Route::post('/register', [RegistrationController::class, 'register']);
         Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/reset-password', [PasswordController::class, 'reset']);
         Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-        Route::post('/reset-password', [PasswordController::class, 'reset'])->middleware('auth:sanctum');
     });
 
     Route::middleware('auth:sanctum')->prefix('/user')->group(function () {

@@ -117,10 +117,10 @@ return [
     /**
      * custom values
      */
-    
-    'otp'=>[
-        'expiry'       => env('OTP_EXPIRY'      ),
-        'resend_wait'  => env('OTP_RESEND_WAIT' ),
+
+    'otp' => [
+        'expiry'       => env('OTP_EXPIRY'),
+        'resend_wait'  => env('OTP_RESEND_WAIT'),
         'token_expiry' => env('OTP_TOKEN_EXPIRY'),
     ],
 ];
