@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\OtpCode;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
@@ -195,6 +196,8 @@ class OtpSendTest extends TestCase
             ], 200)
         ]);
 
+        User::factory()->create(['phone' => $this->validPhone]);
+
         $otp = OtpCode::create([
             'phone' => $this->validPhone,
             'code' => '123456',
@@ -293,6 +296,13 @@ class OtpSendTest extends TestCase
 
     public function test_it_validates_phone_starts_with_09()
     {
+        Http::fake([
+            'api.sms.ir/*' => Http::response([
+                'status' => 1,
+                'data' => ['messageId' => 12345]
+            ], 200)
+        ]);
+
         $response = $this->postJson($this->endpoint, [
             'phone' => '09123456789',
             'purpose' => $this->purpose,
@@ -420,6 +430,13 @@ class OtpSendTest extends TestCase
 
     public function test_it_does_not_allow_requesting_otp_for_same_purpose_within_wait_period_even_with_different_phone()
     {
+        Http::fake([
+            'api.sms.ir/*' => Http::response([
+                'status' => 1,
+                'data' => ['messageId' => 12345]
+            ], 200)
+        ]);
+
         $otp = OtpCode::create([
             'phone' => $this->validPhone,
             'code' => '123456',

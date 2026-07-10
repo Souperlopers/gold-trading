@@ -11,7 +11,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
-use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
@@ -21,9 +20,9 @@ class AuthController extends Controller
         $user = User::where('phone', $request->validated('phone'))->first();
 
         if (! $user || ! Hash::check($request->validated('password'), $user->password)) {
-            return response()->json([
-                'message' => Lang::get('auth.login.failed'),
-            ], 422);
+            throw new \Illuminate\Auth\AuthenticationException(
+                Lang::get('auth.login.failed')
+            );
         }
 
         return $this->authWithPhonePass($request, $user);

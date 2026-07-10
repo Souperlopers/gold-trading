@@ -322,7 +322,7 @@ class PasswordResetTest extends TestCase
             'logout_others'  => false,
         ]);
 
-        $response->assertStatus(422)
+        $response->assertStatus(404)
             ->assertJson([
                 'message' => Lang::get('auth.password.user'),
             ]);
@@ -377,7 +377,7 @@ class PasswordResetTest extends TestCase
             'password' => $oldPassword,
             'client'   => 'mobile',
         ]);
-        $loginResponse->assertStatus(422);
+        $loginResponse->assertStatus(401);
 
         // New password should work
         $loginResponse = $this->postJson('/api/auth/login', [

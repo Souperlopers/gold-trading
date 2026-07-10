@@ -15,9 +15,9 @@ class PasswordController extends Controller
     {
         // extract mobile from verification token received from otp
         if (!$verifiedPhone = OtpCode::getPhoneByToken($request->validated('otp_token'))) {
-            return response()->json([
-                'message' => Lang::get('auth.password.token'),
-            ], 422);
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'otp_token' => Lang::get('auth.password.token')
+            ]);
         }
 
         // altough it's checked in otp flow, but here we check if the phone isn't registered, we stop the process
@@ -25,7 +25,7 @@ class PasswordController extends Controller
         if (!$user) {
             return response()->json([
                 'message' => Lang::get('auth.password.user'),
-            ], 422);
+            ], 404);
         }
 
         // update user password

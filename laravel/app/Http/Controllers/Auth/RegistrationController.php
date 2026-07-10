@@ -14,17 +14,16 @@ class RegistrationController extends Controller
     {
         // extract mobile from verification token received from otp
         if (!$verifiedPhone = OtpCode::getPhoneByToken($request->validated('otp_token'))) {
-            return response()->json([
-                'message' => Lang::get('validation.custom.verification_token.invalid'),
-            ], 422);
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'otp_token' => Lang::get('validation.custom.verification_token.invalid')
+            ]);
         }
 
         // altough it's checked in otp flow, but here we check if the phone is already registered, we stop the process
-        $phoneExists = User::query()->where('phone', $verifiedPhone)->first()?->exists;
-        if ($phoneExists) {
-            return response()->json([
-                'message' => Lang::get('auth.register.already'),
-            ], 422);
+        if (User::where('phone', $verifiedPhone)->exists()) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'phone' => Lang::get('auth.register.already')
+            ]);
         }
 
         // // here I should verify national id, but I skip this part for the moment

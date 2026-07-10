@@ -26,9 +26,10 @@ class OtpController extends Controller
 
         // return last code if its not expired
         if ($otp?->isWithinWaitPeriod()) {
-            return response()->json([
-                'message' => Lang::get('auth.otp.send.already_sent')
-            ], 429);
+            throw new \Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException(
+                message: Lang::get('auth.otp.send.already_sent'),
+                code: 429
+            );
         }
 
         return $this->callService($otp ?? OtpCode::create([
@@ -69,9 +70,9 @@ class OtpController extends Controller
             ->isValid()->first();
 
         if (!$otp) {
-            return response()->json([
-                'message' => Lang::get('auth.otp.verify.incorrect')
-            ], 422);
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'code' => Lang::get('auth.otp.verify.incorrect')
+            ]);
         }
 
         $otp->increment('attempts');
