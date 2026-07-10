@@ -7,9 +7,9 @@ use App\Http\Requests\Auth\CheckPhoneRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Lang;
 
-class PhoneCheckController extends Controller
+class PhoneController extends Controller
 {
-    public function __invoke(CheckPhoneRequest $request)
+    public function check(CheckPhoneRequest $request)
     {
         $phone = $request->validated('phone');
         $exists = User::where('phone', $phone)->exists();
