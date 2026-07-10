@@ -39,6 +39,7 @@ return [
         'failed'        => 'These credentials do not match our records.',
     ],
     'logout' => [
-        'success' => 'Successful logout.'
+        'success' => 'Successful logout.',
+        'failed'  => 'Bearer token mismatch.',
     ],
 ];
