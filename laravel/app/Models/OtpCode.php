@@ -34,7 +34,7 @@ class OtpCode extends Model
         return $this->created_at->diffInSeconds(now()) < config('auth.otp.resend_wait');
     }
 
-    public static function getPhoneByToken(string $token): string
+    public static function getPhoneByToken(string $token): ?string
     {
         return static::query()
             ->where('verification_token', hash(static::TOKEN_HASH_ALGO, $token))
