@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Requests\Auth\LogoutRequest;
+use App\Http\Requests\Auth\SimpleRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -55,22 +55,16 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(LogoutRequest $request)
+    public function logout(SimpleRequest $request)
     {
         if ($request->validated('client') === 'mobile') {
             if (
-                PersonalAccessToken::findToken(
-                    $request->bearerToken()
-                )?->delete()
+                $request->user()->currentAccessToken()->delete()
             ) {
                 return response()->json([
                     'message' => Lang::get('auth.logout.success'),
                 ], 200);
             }
-
-            return response()->json([
-                'message' => Lang::get('auth.logout.failed'),
-            ], 200);
         }
     }
 }
