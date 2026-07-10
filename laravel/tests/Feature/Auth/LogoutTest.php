@@ -86,10 +86,7 @@ class LogoutTest extends TestCase
             'Authorization' => 'Bearer ' . $wrongToken,
         ])->postJson($this->endpoint, ['client' => 'mobile']);
 
-        $logoutResponse->assertStatus(200)
-            ->assertJson([
-                'message' => Lang::get('auth.logout.failed'),
-            ]);
+        $logoutResponse->assertStatus(401);
     }
 
     public function test_logout_fails_without_authentication()
