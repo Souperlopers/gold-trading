@@ -13,13 +13,16 @@ use Illuminate\Support\Facades\Lang;
 
 class AuthController extends Controller
 {
-    public function logout(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        // drop request if phone or password is invalid
+        if (! Auth::attempt($request->validatedUserData())) {
+            return response()->json([
+                'message' => Lang::get('auth.login.failed'),
+            ], 422);
+        }
 
-        return response()->json([
-            'message' => Lang::get('auth.logout.success'),
-        ]);
+        return $this->authWithPhonePass($request, Auth::user());
     }
 
     // accessed from LoginController and RegisterController
