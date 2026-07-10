@@ -19,7 +19,7 @@ class RegistrationController extends Controller
             ], 422);
         }
 
-        // altough it's checked in otp flow, but here we check if phone is registered, we stop the registration process
+        // altough it's checked in otp flow, but here we check if the phone is already registered, we stop the process
         $phoneExists = User::query()->where('phone', $verifiedPhone)->first()?->exists;
         if ($phoneExists) {
             return response()->json([

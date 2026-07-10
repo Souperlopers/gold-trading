@@ -10,7 +10,7 @@ class CheckPhoneTest extends TestCase
 {
     use RefreshDatabase;
 
-    private string $endpoint = '/api/auth/phone';
+    private string $endpoint = '/api/phone';
 
     public function test_phone_is_available()
     {

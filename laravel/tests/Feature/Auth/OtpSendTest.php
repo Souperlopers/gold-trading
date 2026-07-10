@@ -15,7 +15,7 @@ class OtpSendTest extends TestCase
 
     private string $validPhone = '09309506250';
     private string $purpose = 'registration';
-    private string $endpoint = '/api/auth/phone/send-otp';
+    private string $endpoint = '/api/phone/send-otp';
 
     protected function setUp(): void
     {
@@ -369,7 +369,7 @@ class OtpSendTest extends TestCase
         $expiresAt = $response->json('expires_at');
         $otp = OtpCode::first();
 
-        $expected = $otp->created_at->addSeconds(500)->toISOString();
+        $expected = $otp->created_at->addSeconds(500)->toDateTimeString();
         $this->assertEquals($expected, $expiresAt);
     }
 
