@@ -7,7 +7,7 @@ use App\Exceptions\OtpThrottledException;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['phone', 'code', 'purpose', 'expires_at', 'used_at', 'attempts', 'service_response', 'verification_token'])]
+#[Fillable(['phone', 'code', 'purpose', 'expires_at', 'token_used_at', 'attempts', 'service_response', 'verification_token'])]
 class OtpCode extends Model
 {
     public const TOKEN_HASH_ALGO = "sha256";
@@ -21,7 +21,7 @@ class OtpCode extends Model
     {
         return [
             'expires_at' => 'datetime',
-            'used_at' => 'datetime',
+            'token_used_at' => 'datetime',
         ];
     }
 
@@ -38,14 +38,14 @@ class OtpCode extends Model
     {
         return static::query()
             ->where('verification_token', hash(static::TOKEN_HASH_ALGO, $token))
-            ->where('used_at', '>', now()->subSeconds(config('auth.otp.token_expiry'))) // is not expired
+            ->where('token_used_at', '>', now()->subSeconds(config('auth.otp.token_expiry'))) // is not expired
             ->first()?->phone;
     }
 
     public function scopeIsValid($query)
     {
         return $query
-            ->whereNull('used_at') // not used
+            ->whereNull('token_used_at') // not used
             ->where('attempts', '<', self::MAX_ATTEMPT) // can be attempted
             ->where('created_at', '>', now()->subSeconds(config('auth.otp.expiry'))) // is not expired
         ;

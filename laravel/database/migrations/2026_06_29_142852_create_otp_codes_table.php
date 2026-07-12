@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedTinyInteger('attempts')->default(0);
             $table->string('verification_token')->nullable();
             $table->mediumInteger('service_response')->nullable();
-            $table->timestamp('used_at')->nullable();
+            $table->timestamp('token_used_at')->nullable();
 
-            $table->index(['phone', 'purpose', 'used_at']);
+            $table->index(['phone', 'purpose', 'token_used_at']);
             $table->timestamps();
         });
     }

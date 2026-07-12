@@ -47,9 +47,9 @@ class RegistrationTest extends TestCase
             'code'               => '123456',
             'purpose'            => 'registration',
             'verification_token' => hash('sha256', $token),
-            'used_at'            => $usedAt,
+            'token_used_at'            => $usedAt,
         ]);
-        $otp->created_at = $usedAt; // created_at is also set to match used_at for consistency
+        $otp->created_at = $usedAt; // created_at is also set to match token_used_at for consistency
         $otp->save();
 
         return $token;

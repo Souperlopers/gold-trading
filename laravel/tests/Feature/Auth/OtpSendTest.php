@@ -51,7 +51,7 @@ class OtpSendTest extends TestCase
         $this->assertDatabaseHas('otp_codes', [
             'phone'   => $this->validPhone,
             'purpose' => $this->purpose,
-            'used_at' => null,
+            'token_used_at' => null,
             'service_response' => '89545112',
         ]);
     }
@@ -147,7 +147,7 @@ class OtpSendTest extends TestCase
             'phone' => $this->validPhone,
             'code' => '123456',
             'purpose' => $this->purpose,
-            'used_at' => now(),
+            'token_used_at' => now(),
         ]);
         $otp->created_at = now()->subSeconds(10);
         $otp->save();

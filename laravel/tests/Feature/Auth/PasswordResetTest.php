@@ -57,7 +57,7 @@ class PasswordResetTest extends TestCase
             'code'               => '123456',
             'purpose'            => 'password_reset',
             'verification_token' => hash('sha256', $token),
-            'used_at'            => $usedAt,
+            'token_used_at'            => $usedAt,
         ]);
         $otp->created_at = $usedAt;
         $otp->save();

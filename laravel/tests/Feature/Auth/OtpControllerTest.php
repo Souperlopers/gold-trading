@@ -59,7 +59,7 @@ class OtpControllerTest extends TestCase
         $this->assertDatabaseHas('otp_codes', [
             'phone' => $this->validPhone,
             'purpose' => $this->purpose,
-            'used_at' => null,
+            'token_used_at' => null,
         ]);
     }
 
@@ -239,7 +239,7 @@ class OtpControllerTest extends TestCase
             ]);
 
         $otp->refresh();
-        $this->assertNotNull($otp->used_at);
+        $this->assertNotNull($otp->token_used_at);
         $this->assertNotNull($otp->verification_token);
         $this->assertEquals(1, $otp->attempts); // Resets to 0 after success? Actually code doesn't reset attempts on success.
         // In the current code, attempts is incremented before check and not reset. We'll note that.
@@ -294,7 +294,7 @@ class OtpControllerTest extends TestCase
             'phone' => $this->validPhone,
             'code' => '123456',
             'purpose' => $this->purpose,
-            'used_at' => now(),
+            'token_used_at' => now(),
             'attempts' => 0,
         ]);
 
@@ -353,7 +353,7 @@ class OtpControllerTest extends TestCase
 
         $otp->refresh();
         $this->assertEquals(1, $otp->attempts);
-        $this->assertNull($otp->used_at);
+        $this->assertNull($otp->token_used_at);
         $this->assertNull($otp->verification_token);
     }
 
