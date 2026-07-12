@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamp('approved_at')->nullable();
             $table->string('approved_by')->nullable();
 
-            $table->enum('role', User::ROLES)->default('user');
+            $table->enum('role', User::ROLES)->default('viewer');
 
             $table->index(['name', 'phone']);
             $table->rememberToken();

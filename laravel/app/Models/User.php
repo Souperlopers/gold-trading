@@ -25,7 +25,7 @@ class User extends Authenticatable
         ];
     }
 
-    public const ROLES = ['user', 'admin', 'owner'];
+    public const ROLES = ['owner', 'admin', 'trader', 'viewer'];
 
     public function isAdmin(): bool
     {
