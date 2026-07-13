@@ -7,6 +7,22 @@ TODO_Z create components of main pages (figma)
 
 TODO_S add roles (+middlewares)
 
+notification types: modal, top of page, 
+havale page: weight and receiver
+home page features:
+- tahlil
+- gold inventory and balance (hideable)
+- gold price
+- buy/sell product price + image + category
+- ask for amount (weight or money) on clicking buy/sell
+- contact
+navbar:
+- gardesh hesab: filter by date, type of product, and transaction result
+- tahlil: price changes for day
+- settings: sessions, logout, logout everywhere, logout everywhere except here
+- settings: notif activation
+- policies
+
 TODO_S sanctum refresh token? expiration?
 TODO_S add national id validation service
 TODO_S add session based authentication for web clients
