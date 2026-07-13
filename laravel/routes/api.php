@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('throttle:10,1')->group(function () {
 
+    /**
+     * -----------------------------
+     *   authentication endpoints
+     * -----------------------------
+     */
+
     Route::prefix('/phone')->group(function () {
         Route::get('/', [PhoneController::class, 'check']);
         Route::post('/send-otp', [OtpController::class, 'send']);
@@ -21,7 +27,8 @@ Route::middleware('throttle:10,1')->group(function () {
         Route::post('/reset-password', [PasswordController::class, 'reset']);
         Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
     });
-
+    
+    
     Route::middleware('auth:sanctum')->prefix('/user')->group(function () {
         Route::get('/', [AuthController::class, 'user']);
     });
