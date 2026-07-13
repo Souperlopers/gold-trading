@@ -19,7 +19,6 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 import '../styles/global.css';
-import '../styles/variables.css';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
