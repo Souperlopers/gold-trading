@@ -1,5 +1,4 @@
-import Header from "@/app/_components/main/Header"
-import NavigationMenu from "@/app/_components/main/NavigationMenu"
+import {Header, Navigation} from "@/app/index";
 
 export default function MainLayout({
 	children,
@@ -7,9 +6,9 @@ export default function MainLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<main className="h-full bg-background dark:bg-background-d text-text-primary dark:text-text-primary-d">
+		<main className="h-full min-h-dvh bg-background dark:bg-background-d text-text-primary dark:text-text-primary-d">
 			<Header />
-			<NavigationMenu />
+			<Navigation />
 			{children}
 		</main>
 	)
