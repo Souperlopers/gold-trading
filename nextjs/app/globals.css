@@ -1,26 +1,61 @@
 @import "tailwindcss";
 
+@theme {
+  /* Primary */
+  --color-primary: #D4A017;
+  --color-primary-hover: #B8860B;
+  --color-primary-dark: #F0C040;
+  --color-primary-hover-dark: #D4A017;
+
+  /* Secondary */
+  --color-secondary: #1E293B;
+  --color-secondary-dark: #FFD700;
+
+  /* Accent */
+  --color-accent: #E6B422;
+  --color-accent-dark: #1A1408;
+
+  /* Background */
+  --color-background: #FFF8E7;
+  --color-background-secondary: #FFF1CC;
+  --color-background-dark: #2B210F;
+  --color-background-secondary-dark: #302616;
+
+  /* Surface */
+  --color-surface: #FFFFFF;
+  --color-surface-dark: #302616;
+
+  /* Border */
+  --color-border: #E6C35C;
+  --color-border-dark: #8B6914;
+
+  /* Text */
+  --color-text-primary: #000000;
+  --color-text-secondary: #6B4F1A;
+  --color-text-primary-dark: #FFF1CC;
+  --color-text-secondary-dark: #D4A017;
+
+  /* States */
+  --color-error: #A31515;
+  --color-error-dark: #FF6B6B;
+
+  --color-success: #2E7D32;
+  --color-success-dark: #66BB6A;
+
+  /* Charts */
+  --color-chart-bullish: #4CAF50;
+  --color-chart-bearish: #C62828;
+  --color-chart-bearish-dark: #EF5350;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-background text-text-primary;
 }
