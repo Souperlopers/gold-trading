@@ -1,16 +1,19 @@
-import Logo from "@/app/_components/main/Logo"
+import { Logo } from "@/app/index";
 
 export default function Header() {
 	return (
-		<header
+		<header dir="rtl"
 			className="
-				bg-surface dark:bg-surface-d h-18.75 flex justify-center
-				border-b border-x rounded-b-xl border-border dark:border-border-d
+				bg-surface h-18.75 flex justify-center fixed w-full
+				border-b border-x rounded-b-xl border-border
 			"
+			
 		>
-			<div className="relative w-7xl px-4 py-2 flex items-center justify-start">
+			<div className="relative w-full p-5 flex items-center justify-between">
 				<Logo />
-				themSwitcher
+				<div className="w-17.5 h-8 bg-background border border-border rounded-full relative">
+					<div className="h-6 w-6 bg-primary rounded-full absolute top-1 right-1"></div>
+				</div>
 			</div>
 		</header>
 	)
