@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate, Navigate } from "@tanstack/react-router"
-import { useState } from "react"
-import { useAppDispatch, useAppSelector } from "@/store/hooks"
-import { loginUser } from "@/store/authSlice"
+import { useState } from "react";
+import { useAppDispatch,useAppSelector } from "@/app/_store/hooks";
+import { loginUser } from "@/app/_store/authSlice";
 import axios from "axios"
 
 export const Route = createFileRoute("/auth/login")({

@@ -1,3 +1,5 @@
+"use client";
+
 import { setDarkMode, setLightMode, setSystemMode } from "@/app/_store/appSlice"
 import { useAppDispatch, useAppSelector } from "@/app/_store/hooks"
 import { useEffect } from "react"
