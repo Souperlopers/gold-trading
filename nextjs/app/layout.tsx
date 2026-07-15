@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
-import MainLayout from "@/app/_components/main/MainLayout"
 import "./globals.css"
-import ThemeProvider from "./_store/themeProvider"
+import Providers from "./_providers/Providers"
 
 export const metadata: Metadata = {
 	title: "Gold App",
@@ -16,9 +15,9 @@ export default function RootLayout({
 	return (
 		<html lang="fa">
 			<body>
-				<ThemeProvider>
-					<MainLayout children={children} />
-				</ThemeProvider>
+				<Providers>
+					{children}
+				</Providers>
 			</body>
 		</html>
 	)
