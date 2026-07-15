@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
-import Providers from "./_providers/Providers"
+import Providers from "./_providers/Providers";
+import MainLayout from "./_components/main/MainLayout";
 
 export const metadata: Metadata = {
 	title: "Gold App",
@@ -16,7 +17,7 @@ export default function RootLayout({
 		<html lang="fa">
 			<body>
 				<Providers>
-					{children}
+					<MainLayout children={children}/>
 				</Providers>
 			</body>
 		</html>
