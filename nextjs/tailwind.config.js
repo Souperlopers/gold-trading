@@ -5,7 +5,12 @@ content: [
 ],
    darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+       fontFamily: {
+          sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+          vazir: ['"vazir"', "sans-serif"],
+        },
+    },
   },
 
   plugins: [],

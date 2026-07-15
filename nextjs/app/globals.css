@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+    font-family: "vazir";
+    src: url("/fonts/Vazirmatn-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 @theme {
   /* Primary */
   --color-primary: #D4A017;
@@ -108,6 +116,7 @@
 
 body {
   @apply bg-background text-text-primary;
+   font-family: "vazir", sans-serif;
 }
 
 input::-webkit-outer-spin-button,
