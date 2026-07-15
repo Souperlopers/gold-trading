@@ -4,56 +4,106 @@
   /* Primary */
   --color-primary: #D4A017;
   --color-primary-hover: #B8860B;
-  --color-primary-dark: #F0C040;
-  --color-primary-hover-dark: #D4A017;
 
   /* Secondary */
   --color-secondary: #1E293B;
-  --color-secondary-dark: #FFD700;
 
   /* Accent */
   --color-accent: #E6B422;
-  --color-accent-dark: #1A1408;
 
   /* Background */
   --color-background: #FFF8E7;
   --color-background-secondary: #FFF1CC;
-  --color-background-dark: #2B210F;
-  --color-background-secondary-dark: #302616;
 
   /* Surface */
   --color-surface: #FFFFFF;
-  --color-surface-dark: #302616;
 
   /* Border */
   --color-border: #E6C35C;
-  --color-border-dark: #8B6914;
 
   /* Text */
   --color-text-primary: #372A16;
   --color-text-secondary: #6B4F1A;
-  --color-text-primary-dark: #FFF1CC;
-  --color-text-secondary-dark: #D4A017;
 
   /* States */
   --color-error: #A31515;
-  --color-error-dark: #FF6B6B;
-
   --color-success: #2E7D32;
-  --color-success-dark: #66BB6A;
 
   /* Charts */
   --color-chart-bullish: #4CAF50;
   --color-chart-bearish: #C62828;
-  --color-chart-bearish-dark: #EF5350;
 }
 
 :root {
   color-scheme: light;
+
+  /* Primary */
+  --color-primary: #D4A017;
+  --color-primary-hover: #B8860B;
+
+  /* Secondary */
+  --color-secondary: #1E293B;
+
+  /* Accent */
+  --color-accent: #E6B422;
+
+  /* Background */
+  --color-background: #FFF8E7;
+  --color-background-secondary: #FFF1CC;
+
+  /* Surface */
+  --color-surface: #FFFFFF;
+
+  /* Border */
+  --color-border: #E6C35C;
+
+  /* Text */
+  --color-text-primary: #372A16;
+  --color-text-secondary: #6B4F1A;
+
+  /* States */
+  --color-error: #A31515;
+  --color-success: #2E7D32;
+
+  /* Charts */
+  --color-chart-bullish: #4CAF50;
+  --color-chart-bearish: #C62828;
 }
 
 .dark {
   color-scheme: dark;
+
+  /* Primary */
+  --color-primary: #F0C040;
+  --color-primary-hover: #D4A017;
+
+  /* Secondary */
+  --color-secondary: #FFD700;
+
+  /* Accent */
+  --color-accent: #1A1408;
+
+  /* Background */
+  --color-background: #2B210F;
+  --color-background-secondary: #302616;
+
+  /* Surface */
+  --color-surface: #302616;
+
+  /* Border */
+  --color-border: #8B6914;
+
+  /* Text */
+  --color-text-primary: #FFF1CC;
+  --color-text-secondary: #D4A017;
+
+  /* States */
+  --color-error: #FF6B6B;
+  --color-success: #66BB6A;
+
+  /* Charts */
+  --color-chart-bullish: #4CAF50;
+  --color-chart-bearish: #EF5350;
 }
 
 body {
