@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FiMoon, FiSun, FiMonitor } from "react-icons/fi";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/app/_store/store";
+import { setTheme } from "@/app/_store/themeSlice";
 
 type Theme = "light" | "dark" | "system";
 
@@ -12,12 +15,18 @@ const options: { value: Theme; icon: React.ReactNode; label: string }[] = [
 ];
 
 export const ThemeSwitcher = () => {
-  const [theme, setTheme] = useState<Theme>("system");
+  const theme = useSelector((state: RootState) => state.theme.theme);
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const activeIndex = options.findIndex((o) => o.value === theme);
   const activeOption = options[activeIndex];
+
+  useEffect(() => {
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(theme);
+  }, [theme]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -48,7 +57,7 @@ export const ThemeSwitcher = () => {
             role="radio"
             aria-checked={theme === option.value}
             aria-label={option.label}
-            onClick={() => setTheme(option.value)}
+            onClick={() => dispatch(setTheme(option.value))}
             className={`relative z-10 flex items-center justify-center w-9 h-9 rounded-full transition-colors ${
               theme === option.value ? "text-background" : "text-primary"
             }`}
