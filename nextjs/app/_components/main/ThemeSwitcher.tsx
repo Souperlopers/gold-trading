@@ -10,8 +10,8 @@ type Theme = "light" | "dark" | "system";
 
 const options: { value: Theme; icon: React.ReactNode; label: string }[] = [
   { value: "light", icon: <FiSun className="w-4 h-4" />, label: "حالت روشن" },
-  { value: "dark", icon: <FiMoon className="w-4 h-4" />, label: "حالت تاریک" },
   { value: "system", icon: <FiMonitor className="w-4 h-4" />, label: "حالت سیستم" },
+  { value: "dark", icon: <FiMoon className="w-4 h-4" />, label: "حالت تاریک" },
 ];
 
 export const ThemeSwitcher = () => {
@@ -74,7 +74,7 @@ export const ThemeSwitcher = () => {
           aria-expanded={open}
           aria-label="تغییر تم"
           onClick={() => setOpen((prev) => !prev)}
-          className="flex items-center justify-center w-11 h-11 rounded-full bg-background border border-border text-primary transition-colors"
+          className="flex items-center justify-center w-9 h-9 rounded-full bg-background border border-border text-primary transition-colors"
         >
           {activeOption.icon}
         </button>
