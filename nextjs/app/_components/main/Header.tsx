@@ -1,4 +1,4 @@
-import { Logo } from "@/app/index";
+import { Logo, ThemeSwitch } from "@/app/index";
 
 export default function Header() {
 	return (
@@ -11,9 +11,10 @@ export default function Header() {
 		>
 			<div className="relative w-full p-5 flex items-center justify-between">
 				<Logo />
-				<div className="w-17.5 h-8 bg-background border border-border rounded-full relative">
+				{/* <div className="w-17.5 h-8 bg-background border border-border rounded-full relative">
 					<div className="h-6 w-6 bg-primary rounded-full absolute top-1 right-1"></div>
-				</div>
+				</div> */}
+				<ThemeSwitch />
 			</div>
 		</header>
 	)
