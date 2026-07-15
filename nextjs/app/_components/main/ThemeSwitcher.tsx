@@ -92,7 +92,7 @@ export const ThemeSwitcher = () => {
                 aria-selected={theme === option.value}
                 aria-label={option.label}
                 onClick={() => {
-                  setTheme(option.value);
+                  dispatch(setTheme(option.value));
                   setOpen(false);
                 }}
                 className={`flex items-center justify-center w-9 h-9 rounded-full transition-colors ${
