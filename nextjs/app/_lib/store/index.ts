@@ -7,9 +7,11 @@ import {
 import { persistStore, persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 import themeReducer from "@/app/_lib/store/themeSlice"
+import appReducer from "@/app/_lib/store/appSlice"
 
 const rootReducer = combineReducers({
 	theme: themeReducer,
+	app: appReducer,
 })
 
 const persistConfig = {
