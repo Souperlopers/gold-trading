@@ -1,7 +1,31 @@
 import type { Metadata } from "next"
-import "./globals.css"
-import Providers from "./_providers/Providers";
-import MainLayout from "./_components/main/MainLayout";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import { Provider } from "react-redux"
+import { store, persistor } from "@/app/_lib/store"
+import { PersistGate } from "redux-persist/integration/react"
+import MainLayout from "@/app/_components/main/MainLayout"
+// import { persistQueryClient } from "@tanstack/react-query-persist-client"
+// import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister"
+// import milisec from "@/app/_lib/milisec"
+
+const queryClient = new QueryClient({
+	// defaultOptions: {
+	// 	queries: {
+	// 		gcTime: milisec({ day: 7 }),
+	// 	},
+	// },
+})
+
+// const persister = createSyncStoragePersister({
+// 	storage: window.indexedDB,
+// })
+
+// persistQueryClient({
+// 	queryClient,
+// 	persister,
+// 	maxAge: milisec({ day: 7 }),
+// })
 
 export const metadata: Metadata = {
 	title: "Gold App",
@@ -14,12 +38,13 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="fa">
-			<body>
-				<Providers>
-					<MainLayout children={children}/>
-				</Providers>
-			</body>
-		</html>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<QueryClientProvider client={queryClient}>
+					<ReactQueryDevtools />
+					<MainLayout children={children} />
+				</QueryClientProvider>
+			</PersistGate>
+		</Provider>
 	)
 }

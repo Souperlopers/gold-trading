@@ -1,32 +1,30 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { api, ensureCsrfCookie } from "@/lib/api"
 import { isNative } from "@/lib/platform"
 import { tokenStorage } from "@/lib/tokenStorage"
 import type { User } from "@/types/Auth"
 
-export type loginPageState = {
+export type AuthState = {
+	user: User | null
 	status:
-		| "phone"
-		| "register-otp"
-		| "register-fill"
-		| "login-password"
-		| "login-otp"
-		| "login-otp-password"
+		| "idle"
+		| "loading"
+		| "error"
+		| "unauthenticated"
+		| "cant-trade"
+		| "can-trade"
 	error: string | null
 }
 
-const initialState: loginPageState = {
-	status: "phone",
+const initialState: AuthState = {
+	user: null,
+	status: "idle",
 	error: null,
 }
 
-export const phoneAvailable = createAsyncThunk(
-	"auth/phoneAvailable",
-	async (payload: { phone: string }) => {
-		const { data } = await api.post("/auth/check-phone", payload)
-		return data.available as boolean
-	},
-)
+export const fetchCurrentUser = createAsyncThunk("auth/fetchUser", async () => {
+	const { data } = await api.get("/user")
+	return data as User
+})
 
 export const sendPhoneOtp = createAsyncThunk("auth/sendPhoneOtp", async () => {
 	const { data } = await api.post("/user/verify-phone/send")
@@ -59,6 +57,15 @@ export const verifyNationalId = createAsyncThunk(
 	},
 )
 
+export const phoneAvailable = createAsyncThunk(
+	"auth/phoneAvailable",
+	async (payload: { phone: string }) => {
+		const { data } = await api.post("/auth/check-phone", payload)
+		if (isNative() && data.token) await tokenStorage.set(data.token)
+		return data.available as boolean
+	},
+)
+
 export const registerUser = createAsyncThunk(
 	"auth/register",
 	async (payload: {
@@ -84,17 +91,12 @@ export const loginUser = createAsyncThunk(
 	},
 )
 
-export const fetchCurrentUser = createAsyncThunk("auth/fetchUser", async () => {
-	const { data } = await api.get("/user")
-	return data as User
-})
-
 export const logoutUser = createAsyncThunk("/auth/logout", async () => {
 	await api.post("/logout")
 	if (isNative()) await tokenStorage.clear()
 })
 
-const loginPageSlice = createSlice({
+const authSlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {},
@@ -149,4 +151,4 @@ const loginPageSlice = createSlice({
 	},
 })
 
-export default loginPageSlice.reducer
+export default authSlice.reducer

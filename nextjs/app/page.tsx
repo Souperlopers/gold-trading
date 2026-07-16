@@ -1,9 +1,7 @@
-import Button from "./_components/ui/Button"
-
 export default function Home() {
 	return (
 		<main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 sm:items-start">
-		Hello Role
+			Hello Role
 		</main>
 	)
 }
