@@ -34,6 +34,15 @@ class AuthController extends Controller
         $isLogin = $request instanceof LoginRequest;
         $message = Lang::get($isLogin ? 'auth.login.success' : 'auth.register.success');
 
+        // Mobile client -> token (for now this will run on both web and mobile untill I add session support)
+        if ($request->validated('client')) {
+            return response()->json([
+                'message' => $message,
+                'token'   => $user->createToken('auth-token')->plainTextToken,
+                'user'    => new UserResource($user),
+            ], $isLogin ? 200 : 201);
+        }
+
         // Web client -> session cookie
         if ($request->validated('client') === 'web') {
             Auth::login($user);
@@ -42,15 +51,6 @@ class AuthController extends Controller
                 'message' => $message,
                 'user'    => new UserResource($user),
             ]);
-        }
-
-        // Mobile client -> token
-        if ($request->validated('client') === 'mobile') {
-            return response()->json([
-                'message' => $message,
-                'token'   => $user->createToken('auth-token')->plainTextToken,
-                'user'    => new UserResource($user),
-            ], $isLogin ? 200 : 201);
         }
     }
 
