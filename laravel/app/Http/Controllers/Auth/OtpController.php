@@ -41,10 +41,8 @@ class OtpController extends Controller
 
     private function callService(OtpCode $otp)
     {
-        $service = $this->service;
-
         // send the OTP via SMS
-        $result = $service(
+        $result = ($this->service)(
             phone: $otp->phone,
             operation: OtpCode::PURPOSE[$otp->purpose],
             code: $otp->code,
@@ -64,10 +62,10 @@ class OtpController extends Controller
 
     public function verify(VerifyPhoneRequest $request)
     {
-        $otp = OtpCode
-            ::where('phone', $request->validated('phone'))
+        $otp = OtpCode::query()
+            ->where('phone', $request->validated('phone'))
             ->where('purpose', $request->validated('purpose'))
-            ->isValid()->first();
+            ->isValid()->latest()->first();
 
         if (!$otp) {
             throw \Illuminate\Validation\ValidationException::withMessages([
