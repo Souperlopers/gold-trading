@@ -12,7 +12,7 @@ class LoginRequest extends ApiRequest
         return [
             'phone'    => array_merge($this->getRule('phone'), ['exists:users,phone']),
             'password' => $this->getRule('password'),
-            'client' => $this->getRule('client'),
+            'client'   => $this->getRule('client'),
         ];
     }
 

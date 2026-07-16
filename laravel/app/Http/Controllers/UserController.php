@@ -62,7 +62,16 @@ class UserController extends Controller
      */
     public function show(Request $request)
     {
-        //
+        if (!$user = $request->user('sanctum')) {
+            return response()->json([
+                'role' => 'guest',
+            ], 200);
+        }
+
+        return response()->json(
+            new UserResource($user),
+            200
+        );
     }
 
     /**

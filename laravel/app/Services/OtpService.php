@@ -51,8 +51,6 @@ class OtpService
                     ]
                 ]);
 
-
-
             $body = $response->json();
 
             // if the API returns a 4xx or 5xx response, or any status other than 1, treat it as failure
