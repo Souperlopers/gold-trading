@@ -1,10 +1,10 @@
-import { Header, Navigation } from "@/app/index";
-import "../../globals.css";
+import { Header, Navigation } from "@/app/index"
+import "../../globals.css"
 
 export default function MainLayout({
 	children,
 }: {
-	children: React.ReactNode;
+	children: React.ReactNode
 }) {
 	return (
 		<>
@@ -12,5 +12,5 @@ export default function MainLayout({
 			<Navigation />
 			{children}
 		</>
-	);
+	)
 }
