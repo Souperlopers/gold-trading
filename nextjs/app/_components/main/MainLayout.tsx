@@ -1,18 +1,16 @@
-import { Header, Navigation } from "@/app/index"
-import "./globals.css"
+import { Header, Navigation } from "@/app/index";
+import "../../globals.css";
 
 export default function MainLayout({
 	children,
 }: {
-	children: React.ReactNode
+	children: React.ReactNode;
 }) {
 	return (
-		<html lang="fa">
-			<body>
-				<Header />
-				<Navigation />
-				{children}
-			</body>
-		</html>
-	)
+		<>
+			<Header />
+			<Navigation />
+			{children}
+		</>
+	);
 }
