@@ -28,13 +28,4 @@ class RegisterRequest extends ApiRequest
             'national_id' => SanitizeHelper::sanitizeNationalCode($this->national_id),
         ]);
     }
-
-    public function registerData(): array
-    {
-        return [
-            'name'     => $this->validated('name'),
-            'password' => $this->validated('password'),
-            'national_id' => $this->validated('national_id'),
-        ];
-    }
 }

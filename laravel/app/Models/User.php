@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
-#[Fillable(['name', 'phone', 'password', 'role', 'national_id', 'phone_verified_at', 'national_id_verified_at', 'approved_at', 'approved_by'])]
+#[Fillable(['name', 'phone', 'national_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
