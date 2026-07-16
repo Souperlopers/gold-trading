@@ -1,5 +1,5 @@
 import { Header, Navigation } from "@/app/index"
-import "../../globals.css"
+import "@/app/globals.css" // TODO_Z always use absolute routing like this instea of "../../globals.css"
 
 export default function MainLayout({
 	children,
