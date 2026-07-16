@@ -1,10 +1,18 @@
-TOFO_Z find triple switch component for ThemeSwitch.tsx
-TODO_Z simple logo
-TODO_Z favicon
-TODO_Z create login page components (figma)
+TODO_S bring back theme switcher logic
+TODO_S frontend authentication login 
+TODO_Z remove redundant react imports
+TODO_Z remove index.ts
+TODO_Z disable semicolon-adding from prettier preferences
 
+TODO_Z create login page components (figma)
 TODO_Z create components of main pages (figma)
 
+TODO_S read about laravel events
+TODO_S read about laravel channels
+TODO_S read and add query persister if necessary (comments in root page)
+TODO_S add price table
+TODO_S add product response types (with price)
+TODO_S submit new endpoint
 TODO_S add roles (+middlewares)
 
 notification types: modal, top of page, 
@@ -23,6 +31,7 @@ navbar:
 - settings: notif activation
 - policies
 
+TODO_S make OTP dynamic
 TODO_S sanctum refresh token? expiration?
 TODO_S add national id validation service
 TODO_S add session based authentication for web clients
