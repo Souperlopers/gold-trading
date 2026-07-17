@@ -20,14 +20,17 @@ export default function ThemeSwitcher() {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // determine which option(theme) is active
   const activeIndex = options.findIndex((o) => o.value === theme);
   const activeOption = options[activeIndex];
 
+  // theme swapping logic
   useEffect(() => {
     document.documentElement.classList.remove("light", "dark");
     document.documentElement.classList.add(theme);
   }, [theme]);
 
+  // close drpdown menu logic
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -39,12 +42,14 @@ export default function ThemeSwitcher() {
   }, []);
 
   return (
-    <div dir="rtl">
+    <div>
+      {/* this is dispayed on desktop */}
       <div
         role="radiogroup"
         aria-label="تغییر تم"
         className="relative hidden md:inline-flex items-center gap-0.5 p-1 h-11 rounded-full bg-background border border-border"
       >
+        {/* gold background that is transformed in desktop mode */}
         <span
           className="absolute h-9 w-9 rounded-full bg-primary transition-transform duration-300"
           style={{ transform: `translateX(${activeIndex * -38}px)` }}
@@ -67,6 +72,7 @@ export default function ThemeSwitcher() {
         ))}
       </div>
 
+      {/* this is dispayed on mobile */}
       <div ref={containerRef} className="relative inline-block md:hidden">
         <button
           type="button"
