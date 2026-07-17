@@ -82,7 +82,8 @@ export default function ThemeSwitcher() {
         {open && (
           <div
             role="listbox"
-            className="absolute top-13 right-0 flex flex-col gap-0.5 p-1 rounded-full bg-background border border-border shadow-lg z-50"
+          style={{ transform: `translateX(${(46-36)/2}px)` }}
+            className="absolute top-13 flex flex-col gap-0.5 p-1 rounded-full bg-background border border-border shadow-lg z-50"
           >
             {options.map((option) => (
               <button
