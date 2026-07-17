@@ -86,9 +86,9 @@ export default function ThemeSwitcher() {
         <div
           role="listbox"
           style={{ transform: `translateX(${(46-36)/2}px)` }}
-          className={`${!open && "hidden"} absolute top-13 flex flex-col gap-0.5 p-1 rounded-full bg-background border border-border shadow-lg z-50`}
+          className={`${open ? "bg-background border p-1 shadow-lg" : "pointer-events-none border-0 px-1"} border-border transition-transform duration-300 absolute top-13 flex flex-col rounded-full z-50`}
         >
-          {options.map((option) => (
+          {options.map((option, index) => (
             <button
               key={option.value}
               type="button"
@@ -99,9 +99,8 @@ export default function ThemeSwitcher() {
                 dispatch(setTheme(option.value));
                 setOpen(false);
               }}
-              className={`flex items-center justify-center w-9 h-9 rounded-full transition-colors ${
-                theme === option.value ? "bg-primary text-background" : "text-primary"
-              }`}
+              style={{transform: !open ? `translateY(${-(index+1)*20}px)` : ""}}
+              className={`${!open && "opacity-0"} flex items-center justify-center w-9 h-9 rounded-full transition-all ${theme === option.value ? "bg-primary text-background" : "text-primary"}`}
             >
               {option.icon}
             </button>
