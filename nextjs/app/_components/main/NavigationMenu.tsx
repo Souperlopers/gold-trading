@@ -20,7 +20,7 @@ export default function NavigationMenu() {
 					item.separator ? (
 						<div
 							key={index}
-							className="md:border-none h-2/3 border-border border-l-2"
+							className="md:hidden h-2/3 border-border border-l-2"
 						></div>
 					) : (
 						<li key={index}>
