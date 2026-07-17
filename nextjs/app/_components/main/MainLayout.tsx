@@ -5,6 +5,7 @@ import { Header } from "@/app/index"
 import { useGetUser } from "@/app/_lib/api"
 import { useAppDispatch, useAppSelector } from "@/app/_lib/store"
 import { setUser } from "@/app/_lib/store/userSlice"
+import { setLoading } from "@/app/_lib/store/appSlice"
 
 export default function MainLayout({
 	children,
@@ -13,8 +14,14 @@ export default function MainLayout({
 }) {
 	const dispatch = useAppDispatch()
 	const authToken = useAppSelector((s) => s.user.authToken)
+
+	// check user data and access from server
 	const getUser = useGetUser(authToken)
 
+	// update app loading state
+	dispatch(setLoading(getUser.isLoading))
+
+	// update user in store
 	if (getUser.isSuccess) {
 		dispatch(setUser(getUser.data))
 	}
@@ -22,10 +29,8 @@ export default function MainLayout({
 	return (
 		<>
 			<Header />
-			<main className="self-center w-full max-w-360 px-18 py-9">
-				{getUser.isLoading && "در حال بارگیری..."}
-				{getUser.isSuccess && children}
-				{getUser.isError && JSON.stringify(getUser.error)}
+			<main className="self-center w-full max-w-360 px-18 py-12">
+				{children}
 			</main>
 		</>
 	)
