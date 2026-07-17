@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FiMoon, FiSun, FiMonitor } from "react-icons/fi";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/app/_lib/store";
+import { useAppSelector, useAppDispatch } from "@/app/_lib/store";
 import { setTheme } from "@/app/_lib/store/themeSlice";
 
 const options= [
@@ -13,8 +12,8 @@ const options= [
 ];
 
 export default function ThemeSwitcher() {
-  const theme = useSelector((state: RootState) => state.theme.theme);
-  const dispatch = useDispatch();
+  const theme = useAppSelector((s) => s.theme.theme)
+  const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -22,11 +21,33 @@ export default function ThemeSwitcher() {
   const activeIndex = options.findIndex((o) => o.value === theme);
   const activeOption = options[activeIndex];
 
-  // theme swapping logic
-  useEffect(() => {
-    document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(theme);
-  }, [theme]);
+	// theme swapping logic
+	useEffect(() => {
+		// remove previous theme
+		document.documentElement.classList.remove("light", "dark")
+
+		const osIsDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+		const themeClass =
+			theme === "system" ? (osIsDark ? "dark" : "light") : theme
+		document.documentElement.classList.add(themeClass)
+	}, [theme])
+
+	// listen to system theme changes and update the theme accordingly
+	useEffect(() => {
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+
+		function handleThemeChange(e: MediaQueryListEvent) {
+			if (theme === "system") {
+        document.documentElement.classList.remove("light", "dark")
+				document.documentElement.classList.toggle(e.matches?"dark":"light")
+			}
+		}
+
+		mediaQuery.addEventListener("change", handleThemeChange)
+		return () => {
+			mediaQuery.removeEventListener("change", handleThemeChange)
+		}
+	}, [])
 
   // close drpdown menu logic
   useEffect(() => {
