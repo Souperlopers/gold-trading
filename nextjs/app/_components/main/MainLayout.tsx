@@ -1,7 +1,7 @@
 "use client"
 
-import { Header, Navigation } from "@/app/index"
 import "@/app/globals.css" // TODO_Z always use absolute routing like this instea of "../../globals.css"
+import { Header } from "@/app/index"
 import { useGetUser } from "@/app/_lib/api"
 import { useAppDispatch, useAppSelector } from "@/app/_lib/store"
 import { setUser } from "@/app/_lib/store/userSlice"
@@ -13,25 +13,20 @@ export default function MainLayout({
 }) {
 	const dispatch = useAppDispatch()
 	const authToken = useAppSelector((s) => s.user.authToken)
-	const { isPending, isError, isSuccess, ...result } = useGetUser(authToken)
+	const getUser = useGetUser(authToken)
 
-	if (isPending) {
-		return <>loading...</>
+	if (getUser.isSuccess) {
+		dispatch(setUser(getUser.data))
 	}
 
-	if (isError) {
-		console.log(result.error);
-		return <>error</>
-	}
-
-	if (isSuccess) {
-		console.log(result);
-		dispatch(setUser(result.data))
-		return (
-			<>
-				<Header />
-				{children}
-			</>
-		)
-	}
+	return (
+		<>
+			<Header />
+			<main className="self-center w-full max-w-360 px-18 py-9">
+				{getUser.isLoading && "در حال بارگیری..."}
+				{getUser.isSuccess && children}
+				{getUser.isError && JSON.stringify(getUser.error)}
+			</main>
+		</>
+	)
 }

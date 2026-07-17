@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fa" dir="rtl">
-      <body>
+      <body className="flex flex-col align-middle h-screen">
         <Providers>
           <MainLayout>{children}</MainLayout>
         </Providers>
