@@ -46,7 +46,7 @@ export const ThemeSwitcher = () => {
         className="relative hidden md:inline-flex items-center gap-0.5 p-1 h-11 rounded-full bg-background border border-border"
       >
         <span
-          className="absolute top-1 h-9 w-9 rounded-full bg-primary transition-transform duration-300"
+          className="absolute h-9 w-9 rounded-full bg-primary transition-transform duration-300"
           style={{ transform: `translateX(${activeIndex * -38}px)` }}
         />
 
