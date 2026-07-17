@@ -14,7 +14,7 @@ const options: { value: Theme; icon: React.ReactNode; label: string }[] = [
   { value: "dark", icon: <FiMoon className="w-4 h-4" />, label: "حالت تاریک" },
 ];
 
-export const ThemeSwitcher = () => {
+export default function ThemeSwitcher() {
   const theme = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -108,5 +108,3 @@ export const ThemeSwitcher = () => {
     </div>
   );
 };
-
-export default ThemeSwitcher;
