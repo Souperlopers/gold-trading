@@ -1,4 +1,87 @@
 @import "tailwindcss";
+@plugin "daisyui"{
+  prefix: "dui-";
+}
+@plugin "daisyui/theme" {
+  name: "light";
+  color-scheme: light;
+
+  /* Base */
+  --color-base-100: #FFFFFF;        /* Page background */
+  --color-base-200: #F1F5F9;        /* Slightly elevated surface */
+  --color-base-300: #E2E8F0;        /* More elevated (cards) */
+  --color-base-content: #1E293B;    /* Main text */
+
+  /* Brand */
+  --color-primary: #D4AF37;         /* Rich gold */
+  --color-primary-content: #0F172A; /* Dark navy on gold */
+  --color-secondary: #1E3A8A;       /* Deep blue */
+  --color-secondary-content: #FFFFFF;
+  --color-accent: #059669;          /* Emerald (profit/buy) */
+  --color-accent-content: #FFFFFF;
+  --color-neutral: #1E293B;         /* Dark slate */
+  --color-neutral-content: #E2E8F0; /* Light text on neutral */
+
+  /* States */
+  --color-info: #3B82F6;
+  --color-info-content: #FFFFFF;
+  --color-success: #10B981;         /* Green – profit */
+  --color-success-content: #FFFFFF;
+  --color-warning: #F59E0B;
+  --color-warning-content: #FFFFFF;
+  --color-error: #EF4444;           /* Red – loss/alert */
+  --color-error-content: #FFFFFF;
+
+  /* Border radius */
+  --radius-selector: 1rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+
+  /* Effects */
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+@plugin "daisyui/theme" {
+  name: "dark";
+  color-scheme: dark; /* color of browser-provided UI */
+
+  /* Base */
+  --color-base-100: #2B210F;        /* Background */
+  --color-base-200: #302616;        /* Background secondary */
+  --color-base-300: #302616;        /* Surface */
+  --color-base-content: #FFF1CC;    /* Text primary */
+
+  /* Brand */
+  --color-primary: #F0C040;
+  --color-primary-content: #1A1408;
+  --color-secondary: #FFD700;
+  --color-secondary-content: #1A1408;
+  --color-accent: #1A1408;
+  --color-accent-content: #F0C040;
+  --color-neutral: #D4A017;
+  --color-neutral-content: #1A1408;
+
+  /* States */
+  --color-info: #3B82F6;
+  --color-info-content: #FFFFFF;
+  --color-success: #66BB6A;
+  --color-success-content: #1A1408;
+  --color-warning: #F59E0B;
+  --color-warning-content: #1A1408;
+  --color-error: #FF6B6B;
+  --color-error-content: #1A1408;
+
+  /* Border radius */
+  --radius-selector: 1rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+
+  /* Effects */
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
 
 @font-face {
     font-family: "vazir";
@@ -8,114 +91,7 @@
     font-display: swap;
 }
 
-@theme {
-  /* Primary */
-  --color-primary: #D4A017;
-  --color-primary-hover: #B8860B;
-
-  /* Secondary */
-  --color-secondary: #1E293B;
-
-  /* Accent */
-  --color-accent: #E6B422;
-
-  /* Background */
-  --color-background: #FFF8E7;
-  --color-background-secondary: #FFF1CC;
-
-  /* Surface */
-  --color-surface: #FFFFFF;
-
-  /* Border */
-  --color-border: #E6C35C;
-
-  /* Text */
-  --color-text-primary: #372A16;
-  --color-text-secondary: #6B4F1A;
-
-  /* States */
-  --color-error: #A31515;
-  --color-success: #2E7D32;
-
-  /* Charts */
-  --color-chart-bullish: #4CAF50;
-  --color-chart-bearish: #C62828;
-}
-
-:root {
-  color-scheme: light;
-
-  /* Primary */
-  --color-primary: #D4A017;
-  --color-primary-hover: #B8860B;
-
-  /* Secondary */
-  --color-secondary: #1E293B;
-
-  /* Accent */
-  --color-accent: #E6B422;
-
-  /* Background */
-  --color-background: #FFF8E7;
-  --color-background-secondary: #FFF1CC;
-
-  /* Surface */
-  --color-surface: #FFFFFF;
-
-  /* Border */
-  --color-border: #E6C35C;
-
-  /* Text */
-  --color-text-primary: #372A16;
-  --color-text-secondary: #6B4F1A;
-
-  /* States */
-  --color-error: #A31515;
-  --color-success: #2E7D32;
-
-  /* Charts */
-  --color-chart-bullish: #4CAF50;
-  --color-chart-bearish: #C62828;
-}
-
-.dark {
-  color-scheme: dark;
-
-  /* Primary */
-  --color-primary: #F0C040;
-  --color-primary-hover: #D4A017;
-
-  /* Secondary */
-  --color-secondary: #FFD700;
-
-  /* Accent */
-  --color-accent: #1A1408;
-
-  /* Background */
-  --color-background: #2B210F;
-  --color-background-secondary: #302616;
-
-  /* Surface */
-  --color-surface: #302616;
-
-  /* Border */
-  --color-border: #8B6914;
-
-  /* Text */
-  --color-text-primary: #FFF1CC;
-  --color-text-secondary: #D4A017;
-
-  /* States */
-  --color-error: #FF6B6B;
-  --color-success: #66BB6A;
-
-  /* Charts */
-  --color-chart-bullish: #4CAF50;
-  --color-chart-bearish: #EF5350;
-}
-
 body {
-  @apply bg-background text-text-primary;
    font-family: "vazir", sans-serif;
 }
 
