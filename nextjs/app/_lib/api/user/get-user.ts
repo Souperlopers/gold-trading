@@ -7,7 +7,7 @@ type Payload = {
 
 export default (authToken?: string) =>
 	useQuery({
-		queryKey: ["todos", authToken],
+		queryKey: ["get_user", authToken],
 		queryFn: () =>
 			fetcher({
 				url: "/user",
