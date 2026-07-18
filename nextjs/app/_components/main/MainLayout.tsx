@@ -1,31 +1,23 @@
 "use client"
 
-import "@/app/globals.css" // TODO_Z always use absolute routing like this instea of "../../globals.css"
-import { Header } from "@/app/index"
+import "@/app/globals.css" // TODO_Z always use absolute routing like this instead of "../../globals.css"
+import Header from "@/app/_components/main/Header"
 import { useGetUser } from "@/app/_lib/api"
 import { useAppDispatch, useAppSelector } from "@/app/_lib/store"
-import { setUser } from "@/app/_lib/store/userSlice"
-import { setLoading } from "@/app/_lib/store/appSlice"
+import { setUserLoading } from "@/app/_lib/store/userSlice"
 
 export default function MainLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
-	const dispatch = useAppDispatch()
-	const authToken = useAppSelector((s) => s.user.authToken)
-
-	// check user data and access from server
-	const getUser = useGetUser(authToken)
-
-	// update app loading state
-	dispatch(setLoading(getUser.isLoading))
-
+	const user = useAppSelector((s) => s.user) // get user from store
+	const getUser = useGetUser(user.authToken) // check user data and access from server
+	
 	// update user in store
-	if (getUser.isSuccess) {
-		dispatch(setUser(getUser.data))
-	}
-
+	const dispatch = useAppDispatch()
+	dispatch(setUserLoading(getUser.isPending))
+	
 	return (
 		<>
 			<Header />

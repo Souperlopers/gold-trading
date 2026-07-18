@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 export type roles = "guest" | "trader" | "admin" | "owner"
 
 const initialState: {
+	loading?: boolean
 	authToken?: string
 	role: string
 	name?: string
@@ -16,10 +17,13 @@ const themeSlice = createSlice({
 	name: "user",
 	initialState,
 	reducers: {
-		setAuthToken: (state, action) => {
-			state.authToken = action.payload
+		setUserLoading: (state, action) => {
+			state.loading = action.payload
 		},
-		setUser: (state, action) => {
+		setAuthToken: (state, action) => {
+			state.loading = action.payload
+		},
+		setUserData: (state, action) => {
 			state.role = action.payload.role
 			state.name = action.payload.name
 			state.phone = action.payload.phone
@@ -28,5 +32,5 @@ const themeSlice = createSlice({
 	},
 })
 
-export const { setAuthToken, setUser } = themeSlice.actions
+export const { setUserData, setUserLoading, setAuthToken } = themeSlice.actions
 export default themeSlice.reducer
