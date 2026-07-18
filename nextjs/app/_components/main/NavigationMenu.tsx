@@ -15,7 +15,7 @@ export default function NavigationMenu() {
 
 	return (
 		<nav className="fixed bottom-0 right-0 w-full h-16 border-t-3 border-x rounded-t-xl bg-base-200 border-base-300 md:static md:border-none">
-			<ul className="flex justify-around md:justify-start items-center md:gap-10 gap-0 h-full px-5 md:px-0">
+			<ul className="flex justify-around md:justify-start items-center lg:gap-10 md:gap-5 gap-0 h-full px-5 md:px-0">
 				{navigationList.map((item, index) =>
 					item.separator ? (
 						<div
