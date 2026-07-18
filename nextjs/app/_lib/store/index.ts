@@ -7,10 +7,12 @@ import {
 import { persistStore, persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 import themeReducer from "@/app/_lib/store/themeSlice"
+import authReducer from "@/app/_lib/store/authSlice"
 import userReducer from "@/app/_lib/store/userSlice"
 import appReducer from "@/app/_lib/store/appSlice"
 
 const rootReducer = combineReducers({
+	auth: authReducer,
 	theme: themeReducer,
 	user: userReducer,
 	app: appReducer,
@@ -19,7 +21,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
 	key: "root",
 	storage,
-	whitelist: ["theme"],
+	whitelist: ["theme", "auth"],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

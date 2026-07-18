@@ -11,8 +11,9 @@ export default function MainLayout({
 }: {
 	children: React.ReactNode
 }) {
-	const user = useAppSelector((s) => s.user) // get user from store
-	const getUser = useGetUser(user.authToken) // check user data and access from server
+	const dispatch = useAppDispatch()
+	const auth = useAppSelector((s) => s.auth) // get user from store
+	const getUser = useGetUser(auth.token) // check user data and access from server
 	
 	// update user in store
 	const dispatch = useAppDispatch()

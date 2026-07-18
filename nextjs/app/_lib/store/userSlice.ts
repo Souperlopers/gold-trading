@@ -4,7 +4,6 @@ export type roles = "guest" | "trader" | "admin" | "owner"
 
 const initialState: {
 	loading?: boolean
-	authToken?: string
 	role: string
 	name?: string
 	phone?: string
@@ -20,9 +19,6 @@ const themeSlice = createSlice({
 		setUserLoading: (state, action) => {
 			state.loading = action.payload
 		},
-		setAuthToken: (state, action) => {
-			state.loading = action.payload
-		},
 		setUserData: (state, action) => {
 			state.role = action.payload.role
 			state.name = action.payload.name
@@ -32,5 +28,5 @@ const themeSlice = createSlice({
 	},
 })
 
-export const { setUserData, setUserLoading, setAuthToken } = themeSlice.actions
+export const { setUserData, setUserLoading } = themeSlice.actions
 export default themeSlice.reducer
