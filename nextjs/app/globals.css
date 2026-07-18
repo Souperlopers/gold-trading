@@ -13,23 +13,23 @@
   --color-base-content: #1E293B;    /* Main text */
 
   /* Brand */
-  --color-primary: #D4AF37;         /* Rich gold */
-  --color-primary-content: #0F172A; /* Dark navy on gold */
-  --color-secondary: #1E3A8A;       /* Deep blue */
+  --color-primary: #D4AF37;         
+  --color-primary-content: #0F172A; 
+  --color-secondary: #1E3A8A;       
   --color-secondary-content: #FFFFFF;
-  --color-accent: #A67C00;          /* Emerald (profit/buy) */
+  --color-accent: #A67C00;          
   --color-accent-content: #FFFFFF;
-  --color-neutral: #1E293B;         /* Dark slate */
-  --color-neutral-content: #E2E8F0; /* Light text on neutral */
+  --color-neutral: #1E293B;         
+  --color-neutral-content: #E2E8F0; 
 
   /* States */
   --color-info: #3B82F6;
   --color-info-content: #FFFFFF;
-  --color-success: #10B981;         /* Green – profit */
+  --color-success: #10B981;         
   --color-success-content: #FFFFFF;
   --color-warning: #F59E0B;
   --color-warning-content: #FFFFFF;
-  --color-error: #EF4444;           /* Red – loss/alert */
+  --color-error: #EF4444;           
   --color-error-content: #FFFFFF;
 
   /* Border radius */
