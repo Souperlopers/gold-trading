@@ -83,6 +83,28 @@
   --noise: 0;
 }
 
+:root {
+  --color-primary-hover: #B8860B;
+
+  --color-border: #E6C35C;
+
+  --color-text-secondary: #6B4F1A;
+
+  --color-chart-bullish: #4CAF50;
+  --color-chart-bearish: #C62828;
+}
+
+:root[data-theme="dark"] {
+  --color-primary-hover: #D4A017;
+
+  --color-border: #8B6914;
+
+  --color-text-secondary: #D4A017;
+
+  --color-chart-bullish: #4CAF50;
+  --color-chart-bearish: #EF5350;
+}
+
 @font-face {
     font-family: "vazir";
     src: url("/fonts/Vazirmatn-Regular.woff2") format("woff2");
