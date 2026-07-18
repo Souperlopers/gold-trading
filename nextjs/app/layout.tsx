@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fa" dir="rtl">
-      <body className="flex flex-col align-middle h-screen bg-base-100 text-base-content">
+      <body className="flex flex-col align-middle h-screen bg-base-100 text-base-content overflow-y-scroll">
         <Providers>
           <MainLayout>{children}</MainLayout>
         </Providers>
