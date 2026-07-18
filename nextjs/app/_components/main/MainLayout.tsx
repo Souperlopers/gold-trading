@@ -5,6 +5,7 @@ import Header from "@/app/_components/main/Header"
 import { useGetUser } from "@/app/_lib/api"
 import { useAppDispatch, useAppSelector } from "@/app/_lib/store"
 import { setUserLoading } from "@/app/_lib/store/userSlice"
+import { useEffect } from "react"
 
 export default function MainLayout({
 	children,
@@ -14,11 +15,12 @@ export default function MainLayout({
 	const dispatch = useAppDispatch()
 	const auth = useAppSelector((s) => s.auth) // get user from store
 	const getUser = useGetUser(auth.token) // check user data and access from server
-	
+
 	// update user in store
-	const dispatch = useAppDispatch()
-	dispatch(setUserLoading(getUser.isPending))
-	
+	useEffect(() => {
+		dispatch(setUserLoading(getUser.isPending))
+	}, [dispatch, getUser])
+
 	return (
 		<>
 			<Header />
