@@ -7,9 +7,9 @@
   color-scheme: light;
 
   /* Base */
-  --color-base-100: #FFFFFF;        /* Page background */
-  --color-base-200: #F1F5F9;        /* Slightly elevated surface */
-  --color-base-300: #E2E8F0;        /* More elevated (cards) */
+  --color-base-100: #FFF8E7;        /* Page background */
+  --color-base-200: #FFF1CC;        /* Slightly elevated surface */
+  --color-base-300: #F5E4B8;        /* More elevated (cards) */
   --color-base-content: #1E293B;    /* Main text */
 
   /* Brand */
@@ -17,7 +17,7 @@
   --color-primary-content: #0F172A; /* Dark navy on gold */
   --color-secondary: #1E3A8A;       /* Deep blue */
   --color-secondary-content: #FFFFFF;
-  --color-accent: #059669;          /* Emerald (profit/buy) */
+  --color-accent: #A67C00;          /* Emerald (profit/buy) */
   --color-accent-content: #FFFFFF;
   --color-neutral: #1E293B;         /* Dark slate */
   --color-neutral-content: #E2E8F0; /* Light text on neutral */
@@ -47,17 +47,17 @@
   color-scheme: dark; /* color of browser-provided UI */
 
   /* Base */
-  --color-base-100: #2B210F;        /* Background */
-  --color-base-200: #302616;        /* Background secondary */
-  --color-base-300: #302616;        /* Surface */
-  --color-base-content: #FFF1CC;    /* Text primary */
+  --color-base-100: #241B0C;        /* Background */
+  --color-base-200: #2F2515;        /* Background secondary */
+  --color-base-300: #3A3020;        /* Surface */
+  --color-base-content: #F8F5ED;    /* Text primary */
 
   /* Brand */
-  --color-primary: #F0C040;
+  --color-primary: #D4AF37;
   --color-primary-content: #1A1408;
-  --color-secondary: #FFD700;
+  --color-secondary: #1E3A8A;
   --color-secondary-content: #1A1408;
-  --color-accent: #1A1408;
+  --color-accent: #A67C00;
   --color-accent-content: #F0C040;
   --color-neutral: #D4A017;
   --color-neutral-content: #1A1408;
@@ -95,6 +95,7 @@ body {
    font-family: "vazir", sans-serif;
 }
 
+/* Hide number input spinners */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
